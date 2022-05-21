@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var alarmManager = AlarmManager()
+    @State var selectedTab = "DreamDiary"
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        TabView(selection: $selectedTab) {
+            AlarmView().tag("DreamDiary").tabItem {
+                Label("Alarms", systemImage: "alarm")
+            }
+        }
     }
 }
 
