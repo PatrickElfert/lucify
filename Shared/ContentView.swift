@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            AlarmView().tag("DreamDiary").tabItem {
+            AlarmEditView().tag("DreamDiary").tabItem {
                 Label("Alarms", systemImage: "alarm")
             }
         }
