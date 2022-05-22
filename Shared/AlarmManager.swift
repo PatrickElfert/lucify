@@ -14,7 +14,7 @@ class AlarmManager: ObservableObject {
     @Published var selectedMethod: Technique
     @Published var techniquePreset: TechniquePreset
     @Published var numberOfRausisAlarms: Int
-    var runningAlarms: [LDAlarm] = []
+    @Published var runningAlarms: [LDAlarm] = []
     var techniquePresets: [Technique:TechniquePreset]
     
     init() {
@@ -33,14 +33,18 @@ class AlarmManager: ObservableObject {
         techniquePreset = techniquePresets[technique]!
     }
     
-    func setAlarms() throws -> Void {
+    func setAlarms() -> Void {
         guard let url = Bundle.main.url(forResource: "scifi", withExtension: "mp3") else { return }
         for alarm in calculateAlarmsToCreate() {
-            let alarmToRun = LDAlarm(date: alarm.date, audioPlayer: try AVAudioPlayer(contentsOf: url))
-            guard let audioPlayer = alarmToRun.audioPlayer else { return }
-            audioPlayer.prepareToPlay()
-            audioPlayer.play(atTime: alarm.date.timeIntervalSinceNow)
-            runningAlarms.append(alarmToRun)
+            do {
+                let alarmToRun = LDAlarm(date: alarm.date, audioPlayer: try AVAudioPlayer(contentsOf: url))
+                guard let audioPlayer = alarmToRun.audioPlayer else { return }
+                audioPlayer.prepareToPlay()
+                audioPlayer.play(atTime: alarm.date.timeIntervalSinceNow)
+                runningAlarms.append(alarmToRun)
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
     
@@ -69,7 +73,7 @@ struct LDAlarm: Identifiable {
     }
     var id: UUID
     var date: Date
-    var audioPlayer: AVAudioPlayer?    
+    var audioPlayer: AVAudioPlayer?
 }
 
 extension Int {
