@@ -24,30 +24,23 @@ class AlarmManagerTests: XCTestCase {
     }
     
     func test_creates_all_rausis_alarms() throws {
-        alarmManager.numberOfRausisAlarms = 2
-        alarmManager.selectedMethod = .RAUSIS
-        alarmManager.setTechniquePreset(technique: .RAUSIS)
-        alarmManager.techniquePreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
-        alarmManager.techniquePreset.morningAlarms = [LDAlarm(date: morningDate)]
-        print(alarmManager.techniquePreset.wbtbAlarms)
-        try alarmManager.setAlarms()
+        let rausisPreset = RausisPreset()
+        rausisPreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
+        rausisPreset.morningAlarms = [LDAlarm(date: morningDate)]
+        alarmManager.setAlarms(alarms: rausisPreset.allAlarms)
+        print(rausisPreset.allAlarms)
         let expectedDates = [dateFormatter.string(from: wbtbDate),
-                            dateFormatter.string(from: morningDate),
                             dateFormatter.string(from: wbtbDate.addingTimeInterval(2.minutes)),
-                            dateFormatter.string(from: wbtbDate.addingTimeInterval(4.minutes))]
+                            dateFormatter.string(from: wbtbDate.addingTimeInterval(4.minutes)),
+                            dateFormatter.string(from: morningDate)]
         XCTAssert(alarmManager.runningAlarms.map {dateFormatter.string(from: $0.date )}
             .elementsEqual(expectedDates))
     }
     
-    func test_respect_optional_wbtb() throws {
-        alarmManager.selectedMethod = .MILD
-        alarmManager.setTechniquePreset(technique: .MILD)
-        alarmManager.techniquePreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
-        alarmManager.techniquePreset.morningAlarms = [LDAlarm(date: morningDate)]
-        alarmManager.techniquePreset.isWbtbVisible = false
-        try alarmManager.setAlarms()
-        let expectedDates = [dateFormatter.string(from: morningDate)]
-        XCTAssert(alarmManager.runningAlarms.map {dateFormatter.string(from: $0.date )}
-            .elementsEqual(expectedDates))
+    func test_reset_alarms() throws {
+        alarmManager.runningAlarms = [LDAlarm(fromNow: 1.hours)]
+        alarmManager.cancelAlarms()
+        XCTAssert(alarmManager.runningAlarms.isEmpty)
     }
+
 }

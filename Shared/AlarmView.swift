@@ -8,21 +8,28 @@
 import SwiftUI
 
 struct AlarmView: View {
-    var runningAlarms: [LDAlarm]
+    @EnvironmentObject var alarmManager: AlarmManager
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationView {
-            List {
-                ForEach(runningAlarms) {
-                    alarm in
-                    Text(alarm.date.toString(.custom("HH:mm"))!)
+            VStack {
+                List {
+                    ForEach(alarmManager.runningAlarms) {
+                        alarm in
+                        Text(alarm.date.toString(.custom("HH:mm"))!)
+                    }
+                }.navigationTitle("Alarms")
+                Button("Cancel") {
+                    alarmManager.cancelAlarms()
+                    dismiss()
                 }
-            }.navigationTitle("Alarms")
-        }
-    }
+            }
+        }.navigationBarBackButtonHidden(true)    }
 }
 
 struct AlarmView_Previews: PreviewProvider {
     static var previews: some View {
-        AlarmView(runningAlarms: [LDAlarm(fromNow: 8.hours)])
+        let alarms = [LDAlarm(fromNow: 8.hours)]
+        AlarmView().environmentObject(AlarmManager())
     }
 }

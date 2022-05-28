@@ -7,6 +7,18 @@
 
 import Foundation
 
+extension Int {
+    var hours: TimeInterval {
+        TimeInterval(self * 60 * 60)
+    }
+    var minutes: TimeInterval {
+        TimeInterval(self * 60)
+    }
+    var seconds: TimeInterval {
+        TimeInterval(self)
+    }
+}
+
 extension Date {
     func toString(_ format: DateFormatType = .isoDate) -> String?{
         let dateFormatter = DateFormatter()
