@@ -13,7 +13,7 @@ struct TechniqueFooterView: View {
     
     var body: some View {
         NavigationLink(destination: AlarmView().environmentObject(alarmManager).onAppear {alarmManager.setAlarms(alarms: allAlarms)}) {
-            Label("Set Alarms", systemImage: "Clock")
+            Label("Set Alarms", systemImage: "clock.badge.checkmark.fill")
         }
     }
 }

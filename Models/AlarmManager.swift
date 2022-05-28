@@ -10,7 +10,12 @@ import SwiftUI
 import AVFoundation
 
 class AlarmManager: ObservableObject {
-    @Published var runningAlarms: [LDAlarm] = []
+    
+    init(runningAlarms: [LDAlarm] = []) {
+        self.runningAlarms = runningAlarms
+    }
+    
+    @Published var runningAlarms: [LDAlarm]
     
     public func setAlarms(alarms: [LDAlarm]) -> Void {
         print ("set alarms")
