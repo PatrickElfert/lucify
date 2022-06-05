@@ -9,7 +9,9 @@ import SwiftUI
 
 struct AlarmView: View {
     @EnvironmentObject var alarmManager: AlarmManager
+    @ObservedObject var notificationManager = NotificationManager.shared
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -17,7 +19,12 @@ struct AlarmView: View {
                     Section("Active") {
                         ForEach(alarmManager.runningAlarms) {
                             alarm in
-                            Text(alarm.date.toString(.custom("hh:mm a"))!)
+                            HStack() {
+                                Text(alarm.date.toString(.custom("hh:mm a"))!)
+                                Spacer()
+                                alarm.isCompleted ? Image(systemName: "checkmark.square.fill") : Image(systemName: "checkmark.square")
+                                
+                            }
                         }
                     }
                     Label("Cancel", systemImage: "xmark.square.fill").onTapGesture {
@@ -25,8 +32,16 @@ struct AlarmView: View {
                         dismiss()
                     }
                 }.navigationTitle("Alarms")
+            }.alert("Alarm", isPresented: $notificationManager.isNotificationActive) {
+                Button("Ok") {
+                    notificationManager.isNotificationActive = false
+                    if let uuidString = notificationManager.currentNotificationIdentifier {
+                        alarmManager.completeAlarm(uuid: uuidString)
+                    }
+                }
             }
-        }.navigationBarBackButtonHidden(true)
+        }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

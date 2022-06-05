@@ -10,6 +10,7 @@ import SwiftUI
 struct TechniquesView: View {
     
     @ObservedObject var alarmManager: AlarmManager = AlarmManager()
+    @ObservedObject var notificationManager: NotificationManager = NotificationManager()
     @State var selectedTechnique: Technique = .RAUSIS
     
     var body: some View {
@@ -23,7 +24,7 @@ struct TechniquesView: View {
                 }
                 .padding(.horizontal)
                 .pickerStyle(.segmented)
-                TechniqueSelectionView(selectedTechnique: selectedTechnique).environmentObject(alarmManager)
+                TechniqueSelectionView(selectedTechnique: selectedTechnique).environmentObject(alarmManager).environmentObject(notificationManager)
                 Spacer().navigationTitle("Techniques")
             }
         }

@@ -11,22 +11,23 @@ import AVFoundation
 
 class AlarmManager: ObservableObject {
     
+    @Published var runningAlarms: [LDAlarm]
+    var notificationManager = NotificationManager.shared
+    
     init(runningAlarms: [LDAlarm] = []) {
         self.runningAlarms = runningAlarms
     }
     
-    @Published var runningAlarms: [LDAlarm]
-    
     public func setAlarms(alarms: [LDAlarm]) -> Void {
-        print ("set alarms")
-        print(alarms.map {$0.date})
+        NotificationManager.shared.requestPermission()
         guard let url = Bundle.main.url(forResource: "scifi", withExtension: "mp3") else { return }
         for alarm in alarms {
             do {
+                NotificationManager.shared.addNotification(id: alarm.id.uuidString, title: "Alarm", date: alarm.date )
                 let alarmToRun = LDAlarm(date: alarm.date, audioPlayer: try AVAudioPlayer(contentsOf: url))
                 guard let audioPlayer = alarmToRun.audioPlayer else { return }
-                audioPlayer.prepareToPlay()
-                audioPlayer.play(atTime: alarm.date.timeIntervalSinceNow)
+                audioPlayer.numberOfLoops = 20
+                audioPlayer.play(atTime: audioPlayer.deviceCurrentTime + alarm.date.timeIntervalSinceNow)
                 runningAlarms.append(alarmToRun)
             } catch {
                 print(error.localizedDescription)
@@ -36,6 +37,13 @@ class AlarmManager: ObservableObject {
     
     public func cancelAlarms() -> Void {
         runningAlarms = []
-        print("Cancel alarms")
+    }
+    
+    public func completeAlarm(uuid: String) -> Void {
+        var alarm = self.runningAlarms.first {
+            $0.id.uuidString == uuid}
+        print("completeAlarm")
+        alarm?.isCompleted = true
+        alarm?.audioPlayer?.stop()
     }
 }

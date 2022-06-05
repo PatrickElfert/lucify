@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
+import UserNotifications
 
 struct TechniqueFooterView: View {
     @EnvironmentObject var alarmManager: AlarmManager
     var allAlarms: [LDAlarm]
     
     var body: some View {
-        NavigationLink(destination: AlarmView().environmentObject(alarmManager).onAppear {alarmManager.setAlarms(alarms: allAlarms)}) {
+        NavigationLink(destination: AlarmView()
+            .onAppear {
+                alarmManager.setAlarms(alarms: allAlarms)
+            }
+            .environmentObject(alarmManager)
+        ) {
             Label("Set Alarms", systemImage: "clock.badge.checkmark.fill")
-        }
-    }
+        }    }
 }
 
 struct SaveTechniqueView_Previews: PreviewProvider {
