@@ -11,18 +11,19 @@ struct AlarmView: View {
     @EnvironmentObject var alarmManager: AlarmManager
     @ObservedObject var notificationManager = NotificationManager.shared
     @Environment(\.dismiss) var dismiss
+    @Environment(\.scenePhase) var scenePhase
     
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    Section("Active") {
+                    Section("Scheduled") {
                         ForEach(alarmManager.runningAlarms) {
                             alarm in
                             HStack() {
                                 Text(alarm.date.toString(.custom("hh:mm a"))!)
                                 Spacer()
-                                alarm.isCompleted ? Image(systemName: "checkmark.square.fill") : Image(systemName: "checkmark.square")
+                                alarm.isCompleted ? Image(systemName: "checkmark.square.fill") : Image(systemName: "timer.square")
                                 
                             }
                         }
@@ -31,12 +32,29 @@ struct AlarmView: View {
                         alarmManager.cancelAlarms()
                         dismiss()
                     }
-                }.navigationTitle("Alarms")
-            }.alert("Alarm", isPresented: $notificationManager.isNotificationActive) {
-                Button("Ok") {
-                    notificationManager.isNotificationActive = false
+                }
+                .navigationTitle("Alarms")
+            }.alert("Are you dreaming?", isPresented: $notificationManager.isNotificationActive) {
+                Button("No") {
                     if let uuidString = notificationManager.currentNotificationIdentifier {
-                        alarmManager.completeAlarm(uuid: uuidString)
+                        alarmManager.completeAlarm(uuid: uuidString) {
+                            dismiss()
+                        }
+                        notificationManager.isNotificationActive = false
+                        notificationManager.removeNotifications([uuidString])
+                    }
+                }
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            print(newPhase)
+            if newPhase == .active {
+                let runningAlarm = alarmManager.runningAlarms.first {
+                    $0.audioPlayer!.isPlaying
+                }
+                if let alarmToComplete = runningAlarm {
+                    alarmManager.completeAlarm(uuid: alarmToComplete.id.uuidString) {
+                        dismiss()
                     }
                 }
             }

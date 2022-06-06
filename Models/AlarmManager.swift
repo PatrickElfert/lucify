@@ -24,7 +24,7 @@ class AlarmManager: ObservableObject {
         for alarm in alarms {
             do {
                 NotificationManager.shared.addNotification(id: alarm.id.uuidString, title: "Alarm", date: alarm.date )
-                let alarmToRun = LDAlarm(date: alarm.date, audioPlayer: try AVAudioPlayer(contentsOf: url))
+                let alarmToRun = LDAlarm(date: alarm.date, audioPlayer: try AVAudioPlayer(contentsOf: url), id: alarm.id)
                 guard let audioPlayer = alarmToRun.audioPlayer else { return }
                 audioPlayer.numberOfLoops = 20
                 audioPlayer.play(atTime: audioPlayer.deviceCurrentTime + alarm.date.timeIntervalSinceNow)
@@ -39,11 +39,17 @@ class AlarmManager: ObservableObject {
         runningAlarms = []
     }
     
-    public func completeAlarm(uuid: String) -> Void {
-        var alarm = self.runningAlarms.first {
+    public func completeAlarm(uuid: String, onAllAlarmsCompleted: () -> Void) -> Void {
+        print(uuid)
+        let alarm = runningAlarms.first {
             $0.id.uuidString == uuid}
-        print("completeAlarm")
         alarm?.isCompleted = true
         alarm?.audioPlayer?.stop()
+        
+        if(!runningAlarms.contains{!$0.isCompleted}) {
+           onAllAlarmsCompleted()
+        }
     }
+    
+    
 }

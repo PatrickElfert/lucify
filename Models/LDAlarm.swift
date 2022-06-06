@@ -8,11 +8,11 @@
 import Foundation
 import AVFoundation
 
-public struct LDAlarm: Identifiable {
-    init(date: Date, audioPlayer: AVAudioPlayer? = nil) {
+public class LDAlarm: Identifiable, ObservableObject {
+    init(date: Date, audioPlayer: AVAudioPlayer? = nil, id: UUID = UUID() ) {
         self.audioPlayer = audioPlayer
         self.date = date
-        self.id = UUID()
+        self.id = id
         self.isCompleted = false
     }
     
@@ -22,8 +22,8 @@ public struct LDAlarm: Identifiable {
         self.isCompleted = false
     }
     
+    @Published var isCompleted: Bool
     public var id: UUID
     var date: Date
     var audioPlayer: AVAudioPlayer?
-    var isCompleted: Bool
 }

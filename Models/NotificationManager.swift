@@ -17,6 +17,7 @@ import SwiftUI
     /** Handle notification when app is in background */
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response:
                                 UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
     }
     
     /** Handle notification when the app is in foreground */
@@ -58,7 +59,7 @@ extension NotificationManager  {
 }
 
 extension NotificationManager {
-    func addNotification(id : String, title : String, date: Date ,
+    func addNotification(id: String, title : String, date: Date ,
     sound : UNNotificationSound = UNNotificationSound.default) {
         
         let dateComponent = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: date)
@@ -78,5 +79,4 @@ extension NotificationManager {
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ids)
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ids)
     }
-
 }
