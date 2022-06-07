@@ -42,5 +42,21 @@ class AlarmManagerTests: XCTestCase {
         alarmManager.cancelAlarms()
         XCTAssert(alarmManager.runningAlarms.isEmpty)
     }
+    
+    func test_complete_alarm() throws {
+        let  alarmsNotCompletedExpectation = expectation(description: "is not fulfilled since not all alarms are completed")
+        alarmsNotCompletedExpectation.isInverted = true
+        let  alarmsCompletedExpectation = expectation(description: "is fulfilled since all alarms are completed")
+        
+        alarmManager.runningAlarms = [LDAlarm(fromNow: 1.hours), LDAlarm(fromNow: 1.hours)]
+        alarmManager.completeAlarm(uuid: alarmManager.runningAlarms[0].id.uuidString) {
+            alarmsNotCompletedExpectation.fulfill()
+        }
+        alarmManager.completeAlarm(uuid: alarmManager.runningAlarms[1].id.uuidString) {
+            alarmsCompletedExpectation.fulfill()
+        }
+        
+        waitForExpectations(timeout: 1)
+    }
 
 }
