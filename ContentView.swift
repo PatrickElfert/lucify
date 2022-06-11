@@ -9,11 +9,16 @@ import SwiftUI
 
 struct ContentView: View {
     @ObservedObject var alarmManager = AlarmManager()
-    @State var selectedTab = "DreamDiary"
+    @State var selectedTab = "Alarms"
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            TechniquesView()
+            TechniquesView().tabItem {
+                Label("Alarms", systemImage: "alarm" )
+            }
+            DreamDiaryView().tabItem {
+                Label("Dreams", systemImage: "note.text")
+            }
         }
     }
 }
