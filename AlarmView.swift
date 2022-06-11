@@ -10,11 +10,9 @@ import SwiftUI
 struct AlarmView: View {
     @EnvironmentObject var alarmManager: AlarmManager
     @ObservedObject var notificationManager = NotificationManager.shared
-    @ObservedObject var diaryEntry = DiaryEntryModel()
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @State var isDreamDiaryVisible = false
-    var dreamDiaryManager = DreamDiaryManager()
     
     var body: some View {
         NavigationView {
@@ -40,21 +38,16 @@ struct AlarmView: View {
             }.alert("Are you dreaming?", isPresented: $notificationManager.isNotificationActive) {
                 Button("No") {
                     if let uuidString = notificationManager.currentNotificationIdentifier {
-                        alarmManager.completeAlarm(uuid: uuidString) {
-                            dismiss()
-                        }
+                        alarmManager.completeAlarm(uuid: uuidString)
                         notificationManager.isNotificationActive = false
                         notificationManager.removeNotifications([uuidString])
+                        isDreamDiaryVisible = true
                     }
                 }
             }.sheet(isPresented: $isDreamDiaryVisible) {
-                Form {
-                    TextField("Title", text: $diaryEntry.title )
-                    TextEditorWithPlaceholder(text: $diaryEntry.description)
-                    Toggle("Lucid", isOn: $diaryEntry.isLucid)
-                    Button("Save") {
-                        dreamDiaryManager.entries.append(DiaryEntryDTO(from: diaryEntry))
-                        print(dreamDiaryManager.entries)
+                DreamDiarySheetView(forAlarmDate: Date.now).onDisappear {
+                    if(alarmManager.allAlarmsCompleted) {
+                        dismiss()
                     }
                 }
             }
@@ -65,10 +58,7 @@ struct AlarmView: View {
                     $0.audioPlayer!.isPlaying
                 }
                 if let alarmToComplete = runningAlarm {
-                    alarmManager.completeAlarm(uuid: alarmToComplete.id.uuidString) {
-                        dismiss()
-                    }
-                    diaryEntry.date = alarmToComplete.date
+                    alarmManager.completeAlarm(uuid: alarmToComplete.id.uuidString)
                     isDreamDiaryVisible = true
                 }
             }
