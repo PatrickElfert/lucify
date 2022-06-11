@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct DreamDiarySheetView: View {
+    @Environment(\.dismiss) var dismiss
+    @ObservedObject var newDiaryEntry = DiaryEntryModel()
+    var dreamDiaryManager = DreamDiaryManager()
+    
+    init(forAlarmDate: Date) {
+        self.newDiaryEntry.date = forAlarmDate
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Form {
+            TextField("Title", text: $newDiaryEntry.title )
+            TextEditorWithPlaceholder(text: $newDiaryEntry.description)
+            Toggle("Lucid", isOn: $newDiaryEntry.isLucid)
+            Button("Save") {
+                dreamDiaryManager.entries.append(DiaryEntryDTO(from: newDiaryEntry))
+                dismiss()
+            }
+        }
     }
 }
 
 struct DreamDiarySheetView_Previews: PreviewProvider {
     static var previews: some View {
-        DreamDiarySheetView()
+        DreamDiarySheetView(forAlarmDate: Date.now)
     }
 }

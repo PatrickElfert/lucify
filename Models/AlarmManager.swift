@@ -39,16 +39,16 @@ class AlarmManager: ObservableObject {
         runningAlarms = []
     }
     
-    public func completeAlarm(uuid: String, onAllAlarmsCompleted: () -> Void) -> Void {
+    public var allAlarmsCompleted: Bool {
+        !runningAlarms.contains {!$0.isCompleted}
+    }
+    
+    public func completeAlarm(uuid: String) -> Void {
         print(uuid)
         let alarm = runningAlarms.first {
             $0.id.uuidString == uuid}
         alarm?.isCompleted = true
         alarm?.audioPlayer?.stop()
-        
-        if(!runningAlarms.contains{!$0.isCompleted}) {
-           onAllAlarmsCompleted()
-        }
     }
     
     
