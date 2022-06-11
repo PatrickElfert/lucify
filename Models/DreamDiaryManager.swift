@@ -7,7 +7,11 @@
 
 import Foundation
 
-class DreamDiaryManager {
+class DreamDiaryManager: ObservableObject {
+    init(entries: [DiaryEntryDTO] = []) {
+        self.entries = entries
+    }
+    
     var entries: [DiaryEntryDTO] {
         set {
             if let encoded = try? JSONEncoder().encode(newValue) {
@@ -25,20 +29,37 @@ class DreamDiaryManager {
     }
 }
 
-class DiaryEntryDTO: Encodable, Decodable {
+class DiaryEntryDTO: Encodable, Decodable, Identifiable {
     init(from: DiaryEntryModel) {
+        id = UUID()
         date = from.date
         title = from.title
         description = from.description
-        isLucid = from.isLucid}
+        isLucid = from.isLucid
+    }
     
     var date = Date.now
     var title = ""
     var description = ""
     var isLucid = false
+    var id: UUID
 }
 
 class DiaryEntryModel: ObservableObject {
+    init() {}
+    
+    init(preview: Bool = true) {
+        title = "Chocolate"
+        description = "I was eating a lot of chocolate in my dream"
+        isLucid = true
+    }
+    
+    init(from: DiaryEntryDTO) {
+        date = from.date
+        title = from.title
+        description = from.description
+        isLucid = from.isLucid}
+    
     @Published var date = Date.now
     @Published var title = ""
     @Published var description = ""
