@@ -12,6 +12,7 @@ enum Technique: String, CaseIterable {
     case FILD = "FILD"
     case MILD = "MILD"
     case SSILD = "SSILD"
+    case WILD = "WILD"
 }
 
 

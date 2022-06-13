@@ -19,6 +19,8 @@ struct TechniqueSelectionView: View {
             MildPresetView()
         case .SSILD:
             GenericPresetView(genericPreset: TechniquePreset(type: .SSILD))
+        case .WILD:
+            GenericPresetView(genericPreset: TechniquePreset(type: .WILD))
         }
     }
 }

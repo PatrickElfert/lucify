@@ -10,28 +10,35 @@ import SwiftUI
 struct MildPresetView: View {
     @ObservedObject var mildPreset = MildPreset()
     var body: some View {
-        List {
-            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled)
+        Form {
+            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled).tint(Color("Primary"))
             if(mildPreset.isWbtbEnabled) {
-                Section(header: Text("WBTB")) {
+                Section(header: SectionHeader(text: "WBTB")) {
                     ForEach($mildPreset.wbtbAlarms) {
                         $alarm in
                         DatePicker("", selection: $alarm.date ).labelsHidden()
                     }
                 }
             }
-            Section(header: Text("Morning")) {
+            Section(header: SectionHeader(text: "Morning")) {
                 ForEach($mildPreset.morningAlarms) {
                     $alarm in
                     DatePicker("", selection: $alarm.date ).labelsHidden()
                 }
             }
-            TechniqueFooterView(allAlarms: mildPreset.allAlarms)
-        }.listStyle(.automatic)
+        }
     }
 }
 
 struct MildPresetView_Previews: PreviewProvider {
     static var previews: some View {
         MildPresetView().environmentObject(AlarmManager())}
+}
+
+struct SectionHeader: View {
+    let text: String
+    var body: some View {
+        Text(text)
+            .foregroundColor(Color("Primary"))
+    }
 }
