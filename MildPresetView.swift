@@ -6,39 +6,40 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MildPresetView: View {
+    @Binding var allAlarms: [LDAlarm]
     @ObservedObject var mildPreset = MildPreset()
+    @State var anyCancallable: AnyCancellable = AnyCancellable() {}
+    
     var body: some View {
-        Form {
-            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled).tint(Color("Primary"))
+        List {
+            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled.animation()).tint(Color("Primary"))
             if(mildPreset.isWbtbEnabled) {
-                Section(header: SectionHeader(text: "WBTB")) {
-                    ForEach($mildPreset.wbtbAlarms) {
-                        $alarm in
-                        DatePicker("", selection: $alarm.date ).labelsHidden()
-                    }
-                }
+                DatePicker(selection: $mildPreset.wbtbAlarms[0].date, displayedComponents: [.hourAndMinute]) {
+                    Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
+                    Text("WBTB")
+                }.datePickerStyle(.graphical)
             }
-            Section(header: SectionHeader(text: "Morning")) {
+            Section() {
                 ForEach($mildPreset.morningAlarms) {
                     $alarm in
-                    DatePicker("", selection: $alarm.date ).labelsHidden()
+                    DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
+                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
+                        Text("Morning")
+                    }.datePickerStyle(.graphical)
                 }
             }
-        }
+        }.onAppear {
+            anyCancallable = mildPreset.$allAlarms.assign(to: \.allAlarms, on: self)
+        }.onDisappear {
+            anyCancallable.cancel()
+        }.listStyle(.insetGrouped)
     }
 }
 
 struct MildPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        MildPresetView().environmentObject(AlarmManager())}
-}
-
-struct SectionHeader: View {
-    let text: String
-    var body: some View {
-        Text(text)
-            .foregroundColor(Color("Primary"))
-    }
+        MildPresetView(allAlarms: .constant([]) )}
 }

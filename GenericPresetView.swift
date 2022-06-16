@@ -6,30 +6,43 @@
 //
 
 import SwiftUI
+import Combine
 
 struct GenericPresetView: View {
     @ObservedObject var genericPreset: TechniquePreset
+    @State var anyCancallable: AnyCancellable = AnyCancellable() {}
+    @Binding var allAlarms: [LDAlarm]
+    
     var body: some View {
         List {
-            Section(header: Text("WBTB")) {
+            Section {
                 ForEach($genericPreset.wbtbAlarms) {
                     $alarm in
-                    DatePicker("", selection: $alarm.date ).labelsHidden()
+                    DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
+                        Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
+                        Text("WBTB")
+                    }.datePickerStyle(.graphical)
                 }
             }
-            Section(header: Text("Morning")) {
+            Section {
                 ForEach($genericPreset.morningAlarms) {
                     $alarm in
-                    DatePicker("", selection: $alarm.date ).labelsHidden()
-                }
+                    DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
+                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
+                        Text("Morning")
+                    }.datePickerStyle(.graphical)                }
             }
-            TechniqueFooterView(allAlarms: genericPreset.allAlarms)
         }.listStyle(.automatic)
+            .onAppear {
+                anyCancallable = genericPreset.$allAlarms.assign(to: \.allAlarms, on: self)
+            }.onDisappear {
+                anyCancallable.cancel()
+            }
     }
 }
 
 struct GenericPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        GenericPresetView(genericPreset: TechniquePreset(type: .SSILD)).environmentObject(AlarmManager())
+        GenericPresetView(genericPreset: TechniquePreset(type: .SSILD), allAlarms: .constant([]))
     }
 }

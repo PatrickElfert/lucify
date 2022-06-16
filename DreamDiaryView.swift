@@ -42,9 +42,6 @@ struct DreamDiaryView: View {
                     }
                 }
             }.navigationTitle("Dreams")
-            
-        }.onAppear {
-            print(dreamDiaryManager.entries)
         }
     }
     

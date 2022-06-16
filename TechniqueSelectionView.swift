@@ -8,25 +8,27 @@
 import SwiftUI
 
 struct TechniqueSelectionView: View {
-    var selectedTechnique: Technique
+    @Binding var selectedTechnique: Technique
+    @Binding var allAlarms: [LDAlarm]
+    
     var body: some View {
         switch selectedTechnique {
         case .RAUSIS:
-            RausisPresetView()
+            RausisPresetView(allAlarms: $allAlarms)
         case .FILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .FILD))
+            GenericPresetView(genericPreset: TechniquePreset(type: .FILD), allAlarms: $allAlarms)
         case .MILD:
-            MildPresetView()
+            MildPresetView(allAlarms: $allAlarms)
         case .SSILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .SSILD))
+            GenericPresetView(genericPreset: TechniquePreset(type: .SSILD), allAlarms: $allAlarms)
         case .WILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .WILD))
+            GenericPresetView(genericPreset: TechniquePreset(type: .WILD), allAlarms: $allAlarms)
         }
     }
 }
 
 struct TechniqueSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        TechniqueSelectionView(selectedTechnique: .RAUSIS).environmentObject(AlarmManager())
+        TechniqueSelectionView(selectedTechnique: .constant(.RAUSIS), allAlarms: .constant([])).environmentObject(AlarmManager())
     }
 }

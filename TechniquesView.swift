@@ -14,8 +14,11 @@ struct TechniquesView: View {
     @ObservedObject var notificationManager: NotificationManager = NotificationManager()
     @State var selectedTechnique: Technique = .MILD
     @State private var isPresented: Bool = false
+    @State private var allAlarms: [LDAlarm] = []
+    @State private var alarmsActive = false
     
     var body: some View {
+        NavigationLink("", isActive: $alarmsActive) { AlarmView().environmentObject(alarmManager) }
         ZStack {
             VStack {
                 HStack {
@@ -51,12 +54,18 @@ struct TechniquesView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color("Home Overlay")).cornerRadius(17).padding(.bottom, -10)
-            
+                .background(Color("Home Overlay")).cornerRadius(17)
+                
             }
-            HalfASheet(isPresented: $isPresented, title: "Setup Alarms") {
-                TechniqueSelectionView(selectedTechnique: selectedTechnique)
-            }.height(.proportional(0.5))
+            HalfASheet(isPresented: $isPresented ) {
+                VStack {
+                    TechniqueSelectionView(selectedTechnique: $selectedTechnique, allAlarms: $allAlarms)
+                    Button("Done") {
+                        alarmManager.setAlarms(alarms: allAlarms)
+                        alarmsActive = true
+                    }.buttonStyle(.bordered).foregroundColor(Color("Primary"))
+                }
+            }.height(.proportional(0.5)).contentInsets(EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0)).backgroundColor(UIColor.systemGroupedBackground)
         }.background(Color("Home Background"))
     }
     
