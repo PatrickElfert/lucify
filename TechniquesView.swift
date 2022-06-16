@@ -72,7 +72,9 @@ struct TechniquesView: View {
                 alarms in alarmManager.setAlarms(alarms: alarms)
                 alarmsActive = true
             }
-        }.background(Color("Home Background")).sheet(isPresented: $alarmsActive) {
+        }
+        .background(Color("Home Background"))
+        .sheet(isPresented: $alarmsActive) {
             AlarmView().environmentObject(alarmManager).onAppear {
                 isPresented = false
             }

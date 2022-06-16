@@ -19,9 +19,17 @@ struct TechniqueSheetView: View {
         HalfASheet(isPresented: $isPresented ) {
             VStack {
                 TechniqueSelectionView(selectedTechnique: $selectedTechnique, allAlarms: $allAlarms)
-                Button("Done") {
+                Button(action: {
                     onConfirm(allAlarms)
-                }.buttonStyle(.bordered).foregroundColor(Color("Primary"))
+                } ) {
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Confirm")
+                        Image(systemName: "clock.badge.checkmark.fill")
+                    }.frame(maxWidth: .infinity, maxHeight: 50)
+                }
+                    .background(Color("Primary"))
+                    .cornerRadius(5)
+                    .foregroundColor(.primary).padding()
             }
         }.height(.proportional(0.5))
             .contentInsets(EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0))
