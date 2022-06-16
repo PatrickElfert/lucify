@@ -19,10 +19,9 @@ struct TechniqueCardView: View {
                 Text(description).font(Font.body)
             }.padding(10)
             Spacer()
-            Image(systemName: "chevron.right.square.fill").font(.title).foregroundColor(Color("Secondary")).padding(15).onTapGesture {
-                onClick(type)
-            }
-        }.frame(width: 327, height: 90).background(Color("Primary")).cornerRadius(17).padding(.leading, 2)
+        }.frame(width: 327, height: 90).background(Color("Primary")).cornerRadius(17).padding(.leading, 2).onTapGesture {
+            onClick(type)
+        }
     }
 }
 
