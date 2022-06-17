@@ -87,10 +87,18 @@ struct TechniquesView: View {
     }
 }
 
-struct AlarmEditView_Previews: PreviewProvider {
+class AlarmEditView_Previews: PreviewProvider {
     static var previews: some View {
         TechniquesView().environmentObject(AlarmManager())
     }
+
+    #if DEBUG
+    @objc class func injected() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        windowScene?.windows.first?.rootViewController =
+                UIHostingController(rootView: TechniquesView())
+    }
+    #endif
 }
 
 

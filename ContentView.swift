@@ -12,12 +12,21 @@ struct ContentView: View {
     @State var selectedTab = "Alarms"
     
     var body: some View {
-        TechniquesView()
+        VStack {
+            TechniquesView()
+        }
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+class ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
+    #if DEBUG
+    @objc class func injected() {
+        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        windowScene?.windows.first?.rootViewController =
+                UIHostingController(rootView: ContentView())
+    }
+    #endif
 }

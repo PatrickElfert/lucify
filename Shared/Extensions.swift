@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 extension Int {
     var hours: TimeInterval {
