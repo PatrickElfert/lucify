@@ -27,31 +27,23 @@ class AlarmManagerTests: XCTestCase {
     }
     
     func test_creates_all_rausis_alarms() throws {
-        let expectation = self.expectation(description: "should call with correct alarms")
         let rausisPreset = RausisPreset()
-        var allAlarms: [LDAlarm] = []
         
-        rausisPreset.$allAlarms.sink(receiveCompletion: { completion in
-            switch completion {
-            case .finished:
-                expectation.fulfill()
-            }
-        }, receiveValue: {
-            allAlarms = $0
-        }).store(in: &cancelables)
-        
+        let alarmPublisher = rausisPreset.$allAlarms.dropFirst(2).first()
+    
         rausisPreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
         rausisPreset.morningAlarms = [LDAlarm(date: morningDate)]
         
-        alarmManager.setAlarms(alarms: rausisPreset.allAlarms)
         let expectedDates = [dateFormatter.string(from: wbtbDate),
                              dateFormatter.string(from: wbtbDate.addingTimeInterval(2.minutes)),
                              dateFormatter.string(from: wbtbDate.addingTimeInterval(4.minutes)),
                              dateFormatter.string(from: morningDate)]
         
-        waitForExpectations(timeout: 3)
+        let allAlarms = try awaitPublisher(alarmPublisher)
+        print(allAlarms)
+        alarmManager.setAlarms(alarms: allAlarms)
         
-        XCTAssert(allAlarms.map {dateFormatter.string(from: $0.date )}
+        XCTAssert(alarmManager.runningAlarms.map {dateFormatter.string(from: $0.date )}
             .elementsEqual(expectedDates))
     }
     
@@ -61,4 +53,41 @@ class AlarmManagerTests: XCTestCase {
         XCTAssert(alarmManager.runningAlarms.isEmpty)
     }
     
+}
+
+extension XCTestCase {
+    func awaitPublisher<T: Publisher>(
+        _ publisher: T,
+        timeout: TimeInterval = 10,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) throws -> T.Output {
+        var result: Result<T.Output, Error>?
+        let expectation = self.expectation(description: "Awaiting publisher")
+
+        let cancellable = publisher.sink(
+            receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    result = .failure(error)
+                case .finished:
+                    break
+                }
+
+                expectation.fulfill()
+            },
+            receiveValue: { value in
+                result = .success(value)
+            }
+        )
+        waitForExpectations(timeout: timeout)
+        cancellable.cancel()
+        let unwrappedResult = try XCTUnwrap(
+            result,
+            "Awaited publisher did not produce any output",
+            file: file,
+            line: line
+        )
+        return try unwrappedResult.get()
+    }
 }
