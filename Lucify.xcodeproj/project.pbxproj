@@ -36,6 +36,7 @@
 		EF6667372832A7BB008945EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF66670C2832A7BB008945EE /* Assets.xcassets */; };
 		EF66674E2832B42A008945EE /* scifi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF66674D2832B42A008945EE /* scifi.mp3 */; };
 		EF66674F2832B42A008945EE /* scifi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF66674D2832B42A008945EE /* scifi.mp3 */; };
+		EF753ACD285CF1ED006237C8 /* DateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF753ACC285CF1ED006237C8 /* DateTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		EF6667192832A7BB008945EE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		EF66674D2832B42A008945EE /* scifi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = scifi.mp3; sourceTree = "<group>"; };
 		EF6667512832B54D008945EE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS15.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		EF753ACC285CF1ED006237C8 /* DateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED3C6588C03ADF0E97AA7D2 /* AlarmManagerTests.swift */,
+				EF753ACC285CF1ED006237C8 /* DateTests.swift */,
 			);
 			path = LucifyTests;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ED3C77F8C10E6981AF6400F /* AlarmManagerTests.swift in Sources */,
+				EF753ACD285CF1ED006237C8 /* DateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
