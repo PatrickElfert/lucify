@@ -20,6 +20,7 @@
 		4ED3C4FCD5410FC5DB36758A /* RausisPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C8851137358B04F34846 /* RausisPresetView.swift */; };
 		4ED3C55BE45C386473F5553B /* AlarmTimeLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C1E53BF2F40A9C2BB4F4 /* AlarmTimeLineView.swift */; };
 		4ED3C5B893D2A3B85961FB0A /* DreamDiaryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3CB43682196992F9B6E6B /* DreamDiaryManager.swift */; };
+		4ED3C77F8C10E6981AF6400F /* AlarmManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C6588C03ADF0E97AA7D2 /* AlarmManagerTests.swift */; };
 		4ED3C8592407FF132C66BF53 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C84C5F3FFFC157FD4FF5 /* NotificationManager.swift */; };
 		4ED3CA4013A8C5BBC5A76106 /* TechniqueSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C544E68EB19FD9DE034B /* TechniqueSelectionView.swift */; };
 		4ED3CAFA649EF797A4F6683E /* AlarmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3C88A863B0240C277EA70 /* AlarmManager.swift */; };
@@ -30,9 +31,7 @@
 		4ED3CE79895C17B19528D629 /* AlarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3CEA012241C9740A5C119 /* AlarmView.swift */; };
 		4ED3CFA2988B85059C10492C /* GenericPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3CAB5351D910DFE454482 /* GenericPresetView.swift */; };
 		4ED3CFA5827AF7AD843EF87B /* MildPresetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED3CE75DB41DA67990DD8C3 /* MildPresetView.swift */; };
-		4ED3CFCF12B624F22B9179C6 /* Lucify--iOS--Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4ED3CD54E9DE784D3A9BC4CA /* Lucify--iOS--Info.plist */; };
 		EF0D82FF285CAFE2002F42FC /* HalfASheet in Frameworks */ = {isa = PBXBuildFile; productRef = EF0D82FE285CAFE2002F42FC /* HalfASheet */; };
-		EF53BD002839355500BFA887 /* LucifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF53BCFF2839355500BFA887 /* LucifyTests.swift */; };
 		EF6667362832A7BB008945EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF66670C2832A7BB008945EE /* Assets.xcassets */; };
 		EF6667372832A7BB008945EE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF66670C2832A7BB008945EE /* Assets.xcassets */; };
 		EF66674E2832B42A008945EE /* scifi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF66674D2832B42A008945EE /* scifi.mp3 */; };
@@ -40,7 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		EF53BD012839355500BFA887 /* PBXContainerItemProxy */ = {
+		4ED3C26A9DE3D9A99432EB09 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = EF6667052832A7B9008945EE /* Project object */;
 			proxyType = 1;
@@ -54,11 +53,13 @@
 		4ED3C1E53BF2F40A9C2BB4F4 /* AlarmTimeLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmTimeLineView.swift; sourceTree = "<group>"; };
 		4ED3C215C644560DE9B815A1 /* TechniqueSheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechniqueSheetView.swift; sourceTree = "<group>"; };
 		4ED3C31676CEC5EDA46B6BCC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		4ED3C4181EE810FC6E0D3A90 /* LucifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ED3C43B5BF2ADAC5DFEF973 /* TechniquesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechniquesView.swift; sourceTree = "<group>"; };
 		4ED3C4C07FA02AAA1C1CE2FD /* LDAlarm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LDAlarm.swift; sourceTree = "<group>"; };
 		4ED3C4F1CADF8E45602F5EFB /* StatisticCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticCardView.swift; sourceTree = "<group>"; };
 		4ED3C544E68EB19FD9DE034B /* TechniqueSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TechniqueSelectionView.swift; sourceTree = "<group>"; };
 		4ED3C65799B3EF8E4369545A /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		4ED3C6588C03ADF0E97AA7D2 /* AlarmManagerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmManagerTests.swift; sourceTree = "<group>"; };
 		4ED3C7F998375BD043DFA694 /* TextEditorWithPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholder.swift; sourceTree = "<group>"; };
 		4ED3C84C5F3FFFC157FD4FF5 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		4ED3C8851137358B04F34846 /* RausisPresetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RausisPresetView.swift; sourceTree = "<group>"; };
@@ -74,8 +75,6 @@
 		4ED3CEA012241C9740A5C119 /* AlarmView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlarmView.swift; sourceTree = "<group>"; };
 		4ED3CEA58A4227DFC5618C80 /* DreamDiaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DreamDiaryView.swift; sourceTree = "<group>"; };
 		4ED3CF53B0761A97E89CD2B3 /* Technique.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Technique.swift; sourceTree = "<group>"; };
-		EF53BCFD2839355500BFA887 /* LucifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LucifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF53BCFF2839355500BFA887 /* LucifyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LucifyTests.swift; sourceTree = "<group>"; };
 		EF66670C2832A7BB008945EE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EF6667112832A7BB008945EE /* Lucify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF6667172832A7BB008945EE /* Lucify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lucify.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,7 +84,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		EF53BCFA2839355500BFA887 /* Frameworks */ = {
+		4ED3C765AE1C8AA5B84E95A6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -123,10 +122,10 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		EF53BCFE2839355500BFA887 /* LucifyTests */ = {
+		4ED3C15636688B91413739D7 /* LucifyTests */ = {
 			isa = PBXGroup;
 			children = (
-				EF53BCFF2839355500BFA887 /* LucifyTests.swift */,
+				4ED3C6588C03ADF0E97AA7D2 /* AlarmManagerTests.swift */,
 			);
 			path = LucifyTests;
 			sourceTree = "<group>";
@@ -137,7 +136,6 @@
 				EF6667492832ADD1008945EE /* Assets */,
 				EF6667092832A7B9008945EE /* Shared */,
 				EF6667182832A7BB008945EE /* macOS */,
-				EF53BCFE2839355500BFA887 /* LucifyTests */,
 				EF6667122832A7BB008945EE /* Products */,
 				EF6667502832B54D008945EE /* Frameworks */,
 				4ED3C1E53BF2F40A9C2BB4F4 /* AlarmTimeLineView.swift */,
@@ -158,6 +156,7 @@
 				4ED3C024AC4EE68E32DB8B0D /* TechniqueFooterView.swift */,
 				4ED3C7F998375BD043DFA694 /* TextEditorWithPlaceholder.swift */,
 				4ED3C14C89234C6F16487FF8 /* Models */,
+				4ED3C15636688B91413739D7 /* LucifyTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -175,7 +174,7 @@
 			children = (
 				EF6667112832A7BB008945EE /* Lucify.app */,
 				EF6667172832A7BB008945EE /* Lucify.app */,
-				EF53BCFD2839355500BFA887 /* LucifyTests.xctest */,
+				4ED3C4181EE810FC6E0D3A90 /* LucifyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,22 +206,22 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		EF53BCFC2839355500BFA887 /* LucifyTests */ = {
+		4ED3C7063AD62C19E157BBC7 /* LucifyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = EF53BD052839355500BFA887 /* Build configuration list for PBXNativeTarget "LucifyTests" */;
+			buildConfigurationList = 4ED3C68AD0F8703886F2654D /* Build configuration list for PBXNativeTarget "LucifyTests" */;
 			buildPhases = (
-				EF53BCF92839355500BFA887 /* Sources */,
-				EF53BCFA2839355500BFA887 /* Frameworks */,
-				EF53BCFB2839355500BFA887 /* Resources */,
+				4ED3CBA08E46EB1E10DF9F6C /* Sources */,
+				4ED3C765AE1C8AA5B84E95A6 /* Frameworks */,
+				4ED3CEED89FBAF2CE5C113F4 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				EF53BD022839355500BFA887 /* PBXTargetDependency */,
+				4ED3C305AF6047F0FAEBDA70 /* PBXTargetDependency */,
 			);
 			name = LucifyTests;
 			productName = LucifyTests;
-			productReference = EF53BCFD2839355500BFA887 /* LucifyTests.xctest */;
+			productReference = 4ED3C4181EE810FC6E0D3A90 /* LucifyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		EF6667102832A7BB008945EE /* Lucify (iOS) */ = {
@@ -272,10 +271,6 @@
 				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1330;
 				TargetAttributes = {
-					EF53BCFC2839355500BFA887 = {
-						CreatedOnToolsVersion = 13.3;
-						TestTargetID = EF6667102832A7BB008945EE;
-					};
 					EF6667102832A7BB008945EE = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -302,13 +297,13 @@
 			targets = (
 				EF6667102832A7BB008945EE /* Lucify (iOS) */,
 				EF6667162832A7BB008945EE /* Lucify (macOS) */,
-				EF53BCFC2839355500BFA887 /* LucifyTests */,
+				4ED3C7063AD62C19E157BBC7 /* LucifyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		EF53BCFB2839355500BFA887 /* Resources */ = {
+		4ED3CEED89FBAF2CE5C113F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -321,7 +316,6 @@
 			files = (
 				EF6667362832A7BB008945EE /* Assets.xcassets in Resources */,
 				EF66674E2832B42A008945EE /* scifi.mp3 in Resources */,
-				4ED3CFCF12B624F22B9179C6 /* Lucify--iOS--Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,11 +331,11 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		EF53BCF92839355500BFA887 /* Sources */ = {
+		4ED3CBA08E46EB1E10DF9F6C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF53BD002839355500BFA887 /* LucifyTests.swift in Sources */,
+				4ED3C77F8C10E6981AF6400F /* AlarmManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,54 +379,147 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		EF53BD022839355500BFA887 /* PBXTargetDependency */ = {
+		4ED3C305AF6047F0FAEBDA70 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = EF6667102832A7BB008945EE /* Lucify (iOS) */;
-			targetProxy = EF53BD012839355500BFA887 /* PBXContainerItemProxy */;
+			targetProxy = 4ED3C26A9DE3D9A99432EB09 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		EF53BD032839355500BFA887 /* Debug */ = {
+		4ED3C50338F341C7C1AC2D0D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lucify.app/Lucify";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H668GR94H6;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = patri.LucifyTests;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.patri.LucifyTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucify.app/Lucify";
-			};
-			name = Debug;
-		};
-		EF53BD042839355500BFA887 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = H668GR94H6;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = patri.LucifyTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Lucify.app/Lucify";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		4ED3CF5E71C48D24E5A8DDBB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Lucify.app/Lucify";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.patri.LucifyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
 		};
 		EF6667382832A7BB008945EE /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -487,10 +574,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-interposable",
-				);
+				OTHER_LDFLAGS = "";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -542,10 +626,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = (
-					"-Xlinker",
-					"-interposable",
-				);
+				OTHER_LDFLAGS = "";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
@@ -620,6 +701,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -648,6 +730,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -673,11 +756,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		EF53BD052839355500BFA887 /* Build configuration list for PBXNativeTarget "LucifyTests" */ = {
+		4ED3C68AD0F8703886F2654D /* Build configuration list for PBXNativeTarget "LucifyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EF53BD032839355500BFA887 /* Debug */,
-				EF53BD042839355500BFA887 /* Release */,
+				4ED3CF5E71C48D24E5A8DDBB /* Debug */,
+				4ED3C50338F341C7C1AC2D0D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
