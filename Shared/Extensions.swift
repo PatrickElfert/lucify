@@ -22,7 +22,27 @@ extension Int {
     }
 }
 
-extension Date {
+public extension Date {
+    func time(in date: Date) -> Date {
+        let today = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        var this = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: self)
+        if isAfterTimeToday(date: date) {
+            this.day = today.day
+            return Calendar.current.date(from: this)!
+        }
+        this.day = today.day! + 1
+        return Calendar.current.date(from: this)!
+    }
+
+    func isAfterTimeToday(date: Date) -> Bool {
+        return timeSinceStartOfDay > date.timeSinceStartOfDay
+    }
+
+    internal var timeSinceStartOfDay: TimeInterval {
+        let startOfDay = Calendar.current.startOfDay(for: self)
+        return timeIntervalSince(startOfDay)
+    }
+
     func toString(_ format: DateFormatType = .isoDate) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.stringFormat
@@ -31,7 +51,7 @@ extension Date {
     }
 }
 
-extension String {
+public extension String {
     func toDate(_ format: DateFormatType = .isoDate) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format.stringFormat

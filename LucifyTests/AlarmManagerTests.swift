@@ -10,7 +10,10 @@ import Combine
 import XCTest
 
 class AlarmManagerTests: XCTestCase {
-    var alarmManager = AlarmManager()
+    var alarmManager = AlarmManager {
+        "2022-09-03T16:10Z".toDate(.isoDateTime)!
+    }
+
     let dateFormatter = ISO8601DateFormatter()
     var wbtbDate: Date!
     var morningDate: Date!
@@ -25,6 +28,25 @@ class AlarmManagerTests: XCTestCase {
 
     override func tearDownWithError() throws {}
 
+    func test_creates_alarms_in_same_day() throws {
+        let mildPreset = MildPreset()
+        let alarmPublisher = mildPreset.$allAlarms.dropFirst(2).first()
+        let tomorrow = "2022-09-04T17:11Z".toDate(.isoDateTime)!
+        let expectedDate = "2022-09-03T17:11Z".toDate(.isoDateTime)!
+
+        mildPreset.isWbtbEnabled = false
+        mildPreset.morningAlarms = [LDAlarm(date: tomorrow)]
+
+        let expectedDates = [expectedDate.toString(.isoDateTime)]
+        let allAlarms = try awaitPublisher(alarmPublisher)
+        alarmManager.setAlarms(alarms: allAlarms)
+
+        print(expectedDates)
+        print(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) })
+
+        XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }.elementsEqual(expectedDates))
+    }
+
     func test_creates_all_rausis_alarms() throws {
         let rausisPreset = RausisPreset()
 
@@ -33,16 +55,15 @@ class AlarmManagerTests: XCTestCase {
         rausisPreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
         rausisPreset.morningAlarms = [LDAlarm(date: morningDate)]
 
-        let expectedDates = [dateFormatter.string(from: wbtbDate),
-                             dateFormatter.string(from: wbtbDate.addingTimeInterval(2.minutes)),
-                             dateFormatter.string(from: wbtbDate.addingTimeInterval(4.minutes)),
-                             dateFormatter.string(from: morningDate)]
+        let expectedDates = [wbtbDate.toString(.isoDateTime),
+                             wbtbDate.addingTimeInterval(2.minutes).toString(.isoDateTime),
+                             wbtbDate.addingTimeInterval(4.minutes).toString(.isoDateTime),
+                             morningDate.toString(.isoDateTime)]
 
         let allAlarms = try awaitPublisher(alarmPublisher)
-        print(allAlarms)
         alarmManager.setAlarms(alarms: allAlarms)
 
-        XCTAssert(alarmManager.runningAlarms.map { dateFormatter.string(from: $0.date) }
+        XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }
             .elementsEqual(expectedDates))
     }
 
