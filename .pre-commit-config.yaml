@@ -3,3 +3,10 @@ repos:
     rev: 0.49.9
     hooks:
     -   id: swiftformat
+-   repo: local
+    hooks:
+    -   id: run-tests
+        always_run: true
+        name: run-tests
+        entry: ./run-tests.bash
+        language: script
