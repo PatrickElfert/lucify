@@ -13,7 +13,7 @@ struct AlarmView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @State var isDreamDiaryVisible = false
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -22,7 +22,6 @@ struct AlarmView: View {
                     .padding(.top)
                     .padding(.leading)
                 Spacer()
-                
             }
             HStack {
                 AlarmTimeLineView(runningAlarms: $alarmManager.runningAlarms)
@@ -37,7 +36,7 @@ struct AlarmView: View {
                         }
                     }.sheet(isPresented: $isDreamDiaryVisible) {
                         DreamDiarySheetView(forAlarmDate: Date.now).onDisappear {
-                            if(alarmManager.allAlarmsCompleted) {
+                            if alarmManager.allAlarmsCompleted {
                                 dismiss()
                             }
                         }
@@ -57,7 +56,7 @@ struct AlarmView: View {
                 Spacer()
             }.padding(.leading)
             Spacer()
-            Button(action: {alarmManager.cancelAlarms(); dismiss()} ) {
+            Button(action: { alarmManager.cancelAlarms(); dismiss() }) {
                 HStack(alignment: .firstTextBaseline) {
                     Image(systemName: "clear.fill")
                     Text("Stop")
@@ -72,6 +71,6 @@ struct AlarmView: View {
 
 struct AlarmView_Previews: PreviewProvider {
     static var previews: some View {
-        AlarmView(isDreamDiaryVisible:false).environmentObject(AlarmManager(runningAlarms: [LDAlarm(fromNow: 9.hours), LDAlarm(fromNow: 6.hours)]))
+        AlarmView(isDreamDiaryVisible: false).environmentObject(AlarmManager(runningAlarms: [LDAlarm(fromNow: 9.hours), LDAlarm(fromNow: 6.hours)]))
     }
 }

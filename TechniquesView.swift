@@ -5,18 +5,17 @@
 //  Created by Patrick Elfert on 21.05.22.
 //
 
-import SwiftUI
 import HalfASheet
+import SwiftUI
 
 struct TechniquesView: View {
-    
-    @ObservedObject var alarmManager: AlarmManager = AlarmManager()
-    @ObservedObject var notificationManager: NotificationManager = NotificationManager()
+    @ObservedObject var alarmManager: AlarmManager = .init()
+    @ObservedObject var notificationManager: NotificationManager = .init()
     @State var selectedTechnique: Technique = .MILD
     @State private var isPresented: Bool = false
     @State private var allAlarms: [LDAlarm] = []
     @State private var alarmsActive = false
-    
+
     var body: some View {
         ZStack {
             VStack {
@@ -37,7 +36,7 @@ struct TechniquesView: View {
                 }
                 .frame(height: 30)
                 .padding(10)
-                VStack() {
+                VStack {
                     ScrollView(showsIndicators: false) {
                         HStack {
                             Text("Your Progress")
@@ -80,8 +79,8 @@ struct TechniquesView: View {
             }
         }
     }
-    
-    func onTechniqueClicked(type: Technique) -> Void {
+
+    func onTechniqueClicked(type: Technique) {
         selectedTechnique = type
         isPresented = true
     }
@@ -91,14 +90,4 @@ class AlarmEditView_Previews: PreviewProvider {
     static var previews: some View {
         TechniquesView().environmentObject(AlarmManager())
     }
-
-    #if DEBUG
-    @objc class func injected() {
-        let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        windowScene?.windows.first?.rootViewController =
-                UIHostingController(rootView: TechniquesView())
-    }
-    #endif
 }
-
-

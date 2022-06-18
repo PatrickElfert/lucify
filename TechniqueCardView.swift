@@ -11,10 +11,10 @@ struct TechniqueCardView: View {
     var type: Technique
     var description: String
     var onClick: (Technique) -> Void
-    
+
     var body: some View {
         HStack {
-            VStack (alignment: .leading) {
+            VStack(alignment: .leading) {
                 Text(type.rawValue).font(Font.title3.weight(.bold))
                 Text(description).font(Font.body)
             }.padding(10)
@@ -27,8 +27,8 @@ struct TechniqueCardView: View {
 
 struct TechniqueCard_Previews: PreviewProvider {
     static var previews: some View {
-        TechniqueCardView(type: Technique.MILD, description: "Mnemonic Induced Lucid Dream" ) {
-            technique in
+        TechniqueCardView(type: Technique.MILD, description: "Mnemonic Induced Lucid Dream") {
+            _ in
         }
     }
 }

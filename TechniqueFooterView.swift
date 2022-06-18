@@ -11,7 +11,7 @@ import UserNotifications
 struct TechniqueFooterView: View {
     @EnvironmentObject var alarmManager: AlarmManager
     var allAlarms: [LDAlarm]
-    
+
     var body: some View {
         NavigationLink(destination: AlarmView()
             .onAppear {
@@ -20,7 +20,8 @@ struct TechniqueFooterView: View {
             .environmentObject(alarmManager)
         ) {
             Label("Set Alarms", systemImage: "clock.badge.checkmark.fill")
-        }    }
+        }
+    }
 }
 
 struct SaveTechniqueView_Previews: PreviewProvider {

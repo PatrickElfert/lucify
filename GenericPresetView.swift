@@ -5,14 +5,14 @@
 //  Created by Patrick Elfert on 27.05.22.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct GenericPresetView: View {
     @ObservedObject var genericPreset: TechniquePreset
-    @State var anyCancallable: AnyCancellable = AnyCancellable() {}
+    @State var anyCancallable: AnyCancellable = AnyCancellable {}
     @Binding var allAlarms: [LDAlarm]
-    
+
     var body: some View {
         List {
             Section {
@@ -30,7 +30,8 @@ struct GenericPresetView: View {
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
                         Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
                         Text("Morning")
-                    }.datePickerStyle(.graphical)                }
+                    }.datePickerStyle(.graphical)
+                }
             }
         }.listStyle(.automatic)
             .onAppear {

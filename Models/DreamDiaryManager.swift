@@ -11,7 +11,7 @@ class DreamDiaryManager: ObservableObject {
     init(entries: [DiaryEntryDTO] = []) {
         self.entries = entries
     }
-    
+
     var entries: [DiaryEntryDTO] {
         set {
             if let encoded = try? JSONEncoder().encode(newValue) {
@@ -21,7 +21,8 @@ class DreamDiaryManager: ObservableObject {
         }
         get {
             if let savedEntries = UserDefaults.standard.object(forKey: "entries") as? Data,
-               let loadedEntries = try? JSONDecoder().decode([DiaryEntryDTO].self, from: savedEntries) {
+               let loadedEntries = try? JSONDecoder().decode([DiaryEntryDTO].self, from: savedEntries)
+            {
                 return loadedEntries
             }
             return []
@@ -37,7 +38,7 @@ class DiaryEntryDTO: Encodable, Decodable, Identifiable {
         description = from.description
         isLucid = from.isLucid
     }
-    
+
     var date = Date.now
     var title = ""
     var description = ""
@@ -47,19 +48,20 @@ class DiaryEntryDTO: Encodable, Decodable, Identifiable {
 
 class DiaryEntryModel: ObservableObject {
     init() {}
-    
-    init(preview: Bool = true) {
+
+    init(preview _: Bool = true) {
         title = "Chocolate"
         description = "I was eating a lot of chocolate in my dream"
         isLucid = true
     }
-    
+
     init(from: DiaryEntryDTO) {
         date = from.date
         title = from.title
         description = from.description
-        isLucid = from.isLucid}
-    
+        isLucid = from.isLucid
+    }
+
     @Published var date = Date.now
     @Published var title = ""
     @Published var description = ""

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct AlarmTimeLineView: View {
     @Binding var runningAlarms: [LDAlarm]
     var body: some View {
@@ -21,12 +20,12 @@ struct AlarmTimeLineView: View {
                         }.frame(width: 40, height: 40).background(Color("Primary")).cornerRadius(5)
                         Text(alarm.date.toString(.custom("hh:mm a"))!).fontWeight(.semibold)
                     }
-                    if(runningAlarms.last?.id != alarm.id) {
+                    if runningAlarms.last?.id != alarm.id {
                         VStack(alignment: .center) {
-                        Rectangle()
-                            .frame(width: 5, height: 70)
-                            .cornerRadius(5)
-                            .foregroundColor(Color("Primary")).opacity(0.5)
+                            Rectangle()
+                                .frame(width: 5, height: 70)
+                                .cornerRadius(5)
+                                .foregroundColor(Color("Primary")).opacity(0.5)
                         }.frame(width: 40)
                     }
                 }

@@ -8,11 +8,9 @@
 import Foundation
 
 enum Technique: String, CaseIterable {
-    case RAUSIS = "RAUSIS"
-    case FILD = "FILD"
-    case MILD = "MILD"
-    case SSILD = "SSILD"
-    case WILD = "WILD"
+    case RAUSIS
+    case FILD
+    case MILD
+    case SSILD
+    case WILD
 }
-
-

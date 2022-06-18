@@ -10,7 +10,7 @@ import SwiftUI
 struct StatisticCardView: View {
     var title: String
     var count: Int
-    
+
     var body: some View {
         VStack {
             Text("\(count)").font(.largeTitle).fontWeight(.heavy)

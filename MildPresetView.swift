@@ -5,24 +5,24 @@
 //  Created by Patrick Elfert on 27.05.22.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 struct MildPresetView: View {
     @Binding var allAlarms: [LDAlarm]
     @ObservedObject var mildPreset = MildPreset()
-    @State var anyCancallable: AnyCancellable = AnyCancellable() {}
-    
+    @State var anyCancallable: AnyCancellable = AnyCancellable {}
+
     var body: some View {
         List {
             Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled.animation()).tint(Color("Primary"))
-            if(mildPreset.isWbtbEnabled) {
+            if mildPreset.isWbtbEnabled {
                 DatePicker(selection: $mildPreset.wbtbAlarms[0].date, displayedComponents: [.hourAndMinute]) {
                     Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
                     Text("WBTB")
                 }.datePickerStyle(.graphical)
             }
-            Section() {
+            Section {
                 ForEach($mildPreset.morningAlarms) {
                     $alarm in
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
@@ -41,5 +41,6 @@ struct MildPresetView: View {
 
 struct MildPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        MildPresetView(allAlarms: .constant([]) )}
+        MildPresetView(allAlarms: .constant([]))
+    }
 }

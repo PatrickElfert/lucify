@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TextEditorWithPlaceholder: View {
     @Binding var text: String
-    
+
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
@@ -21,7 +21,7 @@ struct TextEditorWithPlaceholder: View {
                     Spacer()
                 }
             }
-            
+
             VStack {
                 TextEditor(text: $text)
                     .frame(minHeight: 150, maxHeight: 300)

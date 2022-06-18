@@ -10,7 +10,7 @@ import SwiftUI
 struct TechniqueSelectionView: View {
     @Binding var selectedTechnique: Technique
     @Binding var allAlarms: [LDAlarm]
-    
+
     var body: some View {
         switch selectedTechnique {
         case .RAUSIS:

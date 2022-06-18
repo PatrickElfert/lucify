@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var alarmManager = AlarmManager()
     @State var selectedTab = "Alarms"
-    
+
     var body: some View {
         VStack {
             TechniquesView()

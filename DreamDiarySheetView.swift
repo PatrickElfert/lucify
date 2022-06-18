@@ -11,14 +11,14 @@ struct DreamDiarySheetView: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var newDiaryEntry = DiaryEntryModel()
     var dreamDiaryManager = DreamDiaryManager()
-    
+
     init(forAlarmDate: Date) {
-        self.newDiaryEntry.date = forAlarmDate
+        newDiaryEntry.date = forAlarmDate
     }
-    
+
     var body: some View {
         Form {
-            TextField("Title", text: $newDiaryEntry.title )
+            TextField("Title", text: $newDiaryEntry.title)
             TextEditorWithPlaceholder(text: $newDiaryEntry.description)
             Toggle("Lucid", isOn: $newDiaryEntry.isLucid)
             Button("Save") {
