@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MildPresetView: View {
     @Binding var allAlarms: [LDAlarm]
-    @ObservedObject var mildPreset = MildPreset()
+    @ObservedObject var mildPreset = MildViewModel()
     @State var anyCancallable: AnyCancellable = AnyCancellable {}
 
     var body: some View {

@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct RausisPresetView: View {
-    @ObservedObject var rausisPreset = RausisPreset()
+    @ObservedObject var rausisPreset = RausisViewModel()
     @Binding var allAlarms: [LDAlarm]
     @State var anyCancallable: AnyCancellable = AnyCancellable {}
     @State var isChainingClicked = false
@@ -39,7 +39,7 @@ struct RausisPresetView: View {
                             isChainingClicked.toggle()
                         }
                     }
-                }
+                }.tint(Color("Primary"))
                 if rausisPreset.isChainingEnabled && isChainingClicked {
                     Picker("Number of alarms", selection: $rausisPreset.numberOfChainedAlarms) {
                         Text("2").tag(2)

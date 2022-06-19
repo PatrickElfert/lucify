@@ -30,7 +30,7 @@ struct TechniqueSheetView: View {
                 .cornerRadius(5)
                 .foregroundColor(.primary).padding()
             }
-        }.height(.proportional(0.5))
+        }.height(.proportional(0.6))
             .contentInsets(EdgeInsets(top: 40, leading: 0, bottom: 0, trailing: 0))
             .backgroundColor(UIColor.systemGroupedBackground)
     }

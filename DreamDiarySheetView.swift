@@ -24,7 +24,7 @@ struct DreamDiarySheetView: View {
             Button("Save") {
                 dreamDiaryManager.entries.append(DiaryEntryDTO(from: newDiaryEntry))
                 dismiss()
-            }
+            }.foregroundColor(Color("Primary"))
         }
     }
 }

@@ -23,6 +23,7 @@ class DreamDiaryManager: ObservableObject {
             if let savedEntries = UserDefaults.standard.object(forKey: "entries") as? Data,
                let loadedEntries = try? JSONDecoder().decode([DiaryEntryDTO].self, from: savedEntries)
             {
+                print(loadedEntries)
                 return loadedEntries
             }
             return []

@@ -16,7 +16,7 @@ struct TechniqueCardView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text(type.rawValue).font(Font.title3.weight(.bold))
-                Text(description).font(Font.body)
+                Text(description).font(Font.body).opacity(0.8)
             }.padding(10)
             Spacer()
         }.frame(width: 327, height: 90).background(Color("Primary")).cornerRadius(17).padding(.leading, 2).onTapGesture {

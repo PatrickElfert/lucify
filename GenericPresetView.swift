@@ -9,7 +9,7 @@ import Combine
 import SwiftUI
 
 struct GenericPresetView: View {
-    @ObservedObject var genericPreset: TechniquePreset
+    @ObservedObject var genericPreset: GenericTechniqueViewModel
     @State var anyCancallable: AnyCancellable = AnyCancellable {}
     @Binding var allAlarms: [LDAlarm]
 
@@ -44,6 +44,6 @@ struct GenericPresetView: View {
 
 struct GenericPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        GenericPresetView(genericPreset: TechniquePreset(type: .SSILD), allAlarms: .constant([]))
+        GenericPresetView(genericPreset: GenericTechniqueViewModel(type: .SSILD), allAlarms: .constant([]))
     }
 }

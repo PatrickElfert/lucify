@@ -29,7 +29,7 @@ class AlarmManagerTests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_creates_alarms_in_same_day() throws {
-        let mildPreset = MildPreset()
+        let mildPreset = MildViewModel()
         let alarmPublisher = mildPreset.$allAlarms.dropFirst(2).first()
         let tomorrow = "2022-09-04T17:11Z".toDate(.isoDateTime)!
         let expectedDate = "2022-09-03T17:11Z".toDate(.isoDateTime)!
@@ -48,7 +48,7 @@ class AlarmManagerTests: XCTestCase {
     }
 
     func test_creates_all_rausis_alarms() throws {
-        let rausisPreset = RausisPreset()
+        let rausisPreset = RausisViewModel()
 
         let alarmPublisher = rausisPreset.$allAlarms.dropFirst(2).first()
 

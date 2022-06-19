@@ -15,14 +15,10 @@ struct TechniqueSelectionView: View {
         switch selectedTechnique {
         case .RAUSIS:
             RausisPresetView(allAlarms: $allAlarms)
-        case .FILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .FILD), allAlarms: $allAlarms)
         case .MILD:
             MildPresetView(allAlarms: $allAlarms)
-        case .SSILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .SSILD), allAlarms: $allAlarms)
-        case .WILD:
-            GenericPresetView(genericPreset: TechniquePreset(type: .WILD), allAlarms: $allAlarms)
+        default:
+            GenericPresetView(genericPreset: GenericTechniqueViewModel(type: selectedTechnique), allAlarms: $allAlarms)
         }
     }
 }
