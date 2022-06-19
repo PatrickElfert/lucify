@@ -41,18 +41,7 @@ struct AlarmView: View {
                             }
                         }
                     }.interactiveDismissDisabled()
-                    .onChange(of: scenePhase) { newPhase in
-                        if newPhase == .active {
-                            let runningAlarm = alarmManager.runningAlarms.first {
-                                $0.audioPlayer!.isPlaying
-                            }
-                            if let alarmToComplete = runningAlarm {
-                                alarmManager.completeAlarm(uuid: alarmToComplete.id.uuidString)
-                                isDreamDiaryVisible = true
-                            }
-                        }
-                    }
-                    .navigationBarBackButtonHidden(true).padding(.leading, 10)
+                    .padding(.leading, 10)
                 Spacer()
             }.padding(.leading)
             Spacer()
@@ -65,6 +54,19 @@ struct AlarmView: View {
                 .background(Color("Primary"))
                 .cornerRadius(5)
                 .foregroundColor(.primary).padding()
+        }
+        .onChange(of: scenePhase) { newPhase in
+            print("scene phase")
+            print(newPhase)
+            if newPhase == .active {
+                let runningAlarm = alarmManager.runningAlarms.first {
+                    $0.audioPlayer!.isPlaying
+                }
+                if let alarmToComplete = runningAlarm {
+                    alarmManager.completeAlarm(uuid: alarmToComplete.id.uuidString)
+                    isDreamDiaryVisible = true
+                }
+            }
         }
     }
 }

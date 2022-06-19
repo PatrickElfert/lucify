@@ -8,7 +8,9 @@
 import Foundation
 
 class DreamDiaryManager: ObservableObject {
-    init(entries: [DiaryEntryDTO] = []) {
+    init() {}
+
+    init(entries: [DiaryEntryDTO]) {
         self.entries = entries
     }
 
@@ -48,7 +50,12 @@ class DiaryEntryDTO: Encodable, Decodable, Identifiable {
 }
 
 class DiaryEntryModel: ObservableObject {
-    init() {}
+    init(date: Date, title: String, description: String, isLucid: Bool) {
+        self.date = date
+        self.title = title
+        self.description = description
+        self.isLucid = isLucid
+    }
 
     init(preview _: Bool = true) {
         title = "Chocolate"

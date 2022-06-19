@@ -24,11 +24,12 @@ class AlarmManager: ObservableObject {
         guard let url = Bundle.main.url(forResource: "scifi", withExtension: "mp3") else { return }
         for alarm in alarms {
             do {
-                NotificationManager.shared.addNotification(id: alarm.id.uuidString, title: "Alarm", date: alarm.date)
-                let alarmToRun = LDAlarm(date: alarm.date.time(in: dateGenerator()), audioPlayer: try AVAudioPlayer(contentsOf: url), id: alarm.id)
+                let alarmDate = alarm.date.time(in: dateGenerator())
+                NotificationManager.shared.addNotification(id: alarm.id.uuidString, title: "Alarm", date: alarmDate)
+                let alarmToRun = LDAlarm(date: alarmDate, audioPlayer: try AVAudioPlayer(contentsOf: url), id: alarm.id)
                 guard let audioPlayer = alarmToRun.audioPlayer else { return }
                 audioPlayer.numberOfLoops = 20
-                audioPlayer.play(atTime: audioPlayer.deviceCurrentTime + alarm.date.timeIntervalSinceNow)
+                audioPlayer.play(atTime: audioPlayer.deviceCurrentTime + alarmDate.timeIntervalSinceNow)
                 runningAlarms.append(alarmToRun)
             } catch {
                 print(error.localizedDescription)

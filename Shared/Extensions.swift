@@ -8,6 +8,13 @@
 import Foundation
 import SwiftUI
 
+public extension List {
+    func backgroundList(_ color: Color = .clear) -> some View {
+        UITableView.appearance().backgroundColor = UIColor(color)
+        return self
+    }
+}
+
 extension Int {
     var hours: TimeInterval {
         TimeInterval(self * 60 * 60)

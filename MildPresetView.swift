@@ -31,7 +31,8 @@ struct MildPresetView: View {
                     }.datePickerStyle(.graphical)
                 }
             }
-        }.onAppear {
+        }
+        .onAppear {
             anyCancallable = mildPreset.$allAlarms.assign(to: \.allAlarms, on: self)
         }.onDisappear {
             anyCancallable.cancel()

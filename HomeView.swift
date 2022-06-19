@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(\.scenePhase) var scenePhase
     @State var selectedTechnique: Technique = .MILD
     @State private var isPresented: Bool = false
     @State private var allAlarms: [LDAlarm] = []
@@ -52,7 +53,7 @@ struct HomeView: View {
             .sheet(isPresented: $alarmsActive) {
                 AlarmView().environmentObject(alarmManager).onAppear {
                     isPresented = false
-                }
+                }.environment(\.scenePhase, scenePhase)
             }
 
             TechniqueSheetView(isPresented: $isPresented, selectedTechnique: $selectedTechnique) {

@@ -40,10 +40,6 @@ class AlarmManagerTests: XCTestCase {
         let expectedDates = [expectedDate.toString(.isoDateTime)]
         let allAlarms = try awaitPublisher(alarmPublisher)
         alarmManager.setAlarms(alarms: allAlarms)
-
-        print(expectedDates)
-        print(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) })
-
         XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }.elementsEqual(expectedDates))
     }
 

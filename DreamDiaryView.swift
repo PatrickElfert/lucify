@@ -39,7 +39,7 @@ struct DreamDiaryView: View {
                             }
                         }
                     }
-                }.navigationTitle("Dreams")
+                }.backgroundList(Color("Home Overlay"))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -48,7 +48,7 @@ struct DreamDiaryView: View {
 
     struct DreamDiaryView_Previews: PreviewProvider {
         static var previews: some View {
-            DreamDiaryView(dreamDiaryManager: DreamDiaryManager(entries: []))
+            DreamDiaryView(dreamDiaryManager: DreamDiaryManager(entries: [DiaryEntryDTO(from: DiaryEntryModel(date: "2022-09-04T17:10Z".toDate(.isoDateTime)!, title: "TestTitle", description: "TestDescription", isLucid: true))]))
         }
     }
 }

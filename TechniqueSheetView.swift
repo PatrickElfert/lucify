@@ -41,5 +41,6 @@ struct TechniqueSheetView_Previews: PreviewProvider {
         TechniqueSheetView(isPresented: .constant(true), selectedTechnique: .constant(Technique.RAUSIS)) {
             _ in
         }
+        .environment(\.colorScheme, .dark)
     }
 }

@@ -31,6 +31,6 @@ struct DreamDiarySheetView: View {
 
 struct DreamDiarySheetView_Previews: PreviewProvider {
     static var previews: some View {
-        DreamDiarySheetView(forAlarmDate: Date.now)
+        DreamDiarySheetView(forAlarmDate: Date.now).environment(\.colorScheme, .dark)
     }
 }
