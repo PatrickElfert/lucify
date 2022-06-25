@@ -21,25 +21,15 @@ struct DreamDiaryView: View {
                     Text("You have not recorded any dreams, you can record dreams after you turn off an alarm.").font(.body).opacity(0.5).padding().frame(maxHeight: .infinity)
                 }.navigationTitle("Dreams")
             } else {
-                List {
-                    ForEach(dreamDiaryManager.entries) {
-                        entry in
-                        Section {
-                            HStack {
-                                Spacer()
-                                VStack(alignment: .leading) {
-                                    HStack {
-                                        Text(entry.title).font(.title).padding(1)
-                                        Spacer()
-                                        Text(entry.isLucid ? "Lucid" : "Normal").frame(width: 70, height: 20).background(Color.gray.opacity(0.4)).cornerRadius(5)
-                                    }
-                                    Text(entry.description).font(.body)
-                                }
-                                Spacer()
-                            }
+                VStack {
+                    DatePickerBarView().padding(.top)
+                    ScrollView {
+                        ForEach(dreamDiaryManager.entries) {
+                            entry in
+                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).padding(20)
                         }
                     }
-                }.backgroundList(Color("Home Overlay"))
+                }.background(Color("Home Overlay"))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

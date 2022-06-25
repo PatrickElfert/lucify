@@ -42,6 +42,6 @@ struct MildPresetView: View {
 
 struct MildPresetView_Previews: PreviewProvider {
     static var previews: some View {
-        MildPresetView(allAlarms: .constant([]))
+        MildPresetView(allAlarms: .constant([])).environment(\.colorScheme, .dark)
     }
 }
