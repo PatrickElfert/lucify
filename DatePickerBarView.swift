@@ -8,20 +8,22 @@
 import SwiftUI
 
 struct DatePickerBarView: View {
+    @ObservedObject var datePickerManager = DatePickerManager()
+    @State private var scrollViewContentOffset = CGFloat(0)
+    @State private var currentPage: Int = 1
     var body: some View {
-        let days = 365 * 50
-        ScrollView(.horizontal, showsIndicators: false) {
-            ScrollViewReader {
-                proxy in
-                LazyHStack(spacing: 20) {
-                    ForEach(1 ... days, id: \.self) {
-                        DatePickerElement(date: Date.now.addingTimeInterval(Double($0) * -24.hours)).id("\($0)neg")
+        PagerView(pageCount: 3, currentIndex: $currentPage) {
+            ForEach(datePickerManager.shownWeeks, id: \.self) {
+                week in
+                HStack(spacing: 0) {
+                    ForEach(week, id: \.self) {
+                        day in
+                        DatePickerElement(date: day).padding(10)
                     }
-                    DatePickerElement(date: Date.now).id("today")
-                    ForEach(1 ... days, id: \.self) {
-                        DatePickerElement(date: Date.now.addingTimeInterval(Double($0) * 24.hours)).id("\($0)pos")
-                    }
-                }.frame(height: 70).onAppear { proxy.scrollTo("today") }
+                }.frame(height: 70).onChange(of: currentPage) {
+                    _ in
+                    datePickerManager.onWeekChange(index: currentPage)
+                }
             }
         }
     }
@@ -44,12 +46,12 @@ struct DatePickerElement: View {
 
     var body: some View {
         VStack {
-            Text("\(date.toString(.custom("dd"))!)").font(Font.title).fontWeight(.bold)
+            Text("\(date.toString(.custom("dd"))!)").font(Font.body).fontWeight(.bold)
             if isToday {
-                Text("Today").font(Font.body).opacity(0.8)
+                Text("Today").font(Font.caption).opacity(0.8)
             } else {
-                Text("\(date.toString(.custom("EEE"))!)").font(Font.body).opacity(0.8)
+                Text("\(date.toString(.custom("EEE"))!)").font(Font.caption).opacity(0.8)
             }
-        }.frame(width: 60, height: 60).background(isToday ? Color("Selection") : Color("Primary")).cornerRadius(10).foregroundColor(isToday ? .black : .white)
+        }.frame(width: 40, height: 40).background(isToday ? Color("Selection") : Color("Primary")).cornerRadius(10).foregroundColor(isToday ? .black : .white)
     }
 }

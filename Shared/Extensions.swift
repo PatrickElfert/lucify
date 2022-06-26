@@ -16,6 +16,14 @@ public extension List {
 }
 
 extension Int {
+    var weeks: TimeInterval {
+        TimeInterval(self * 7 * 24 * 60 * 60)
+    }
+
+    var days: TimeInterval {
+        TimeInterval(self * 24 * 60 * 60)
+    }
+
     var hours: TimeInterval {
         TimeInterval(self * 60 * 60)
     }
