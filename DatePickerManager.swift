@@ -9,8 +9,12 @@ import Foundation
 
 class DatePickerManager: ObservableObject {
     @Published var shownWeeks: [[Date]] = []
+    var currentIndex = 0
+    private let dateGenerator: () -> Date
+    private var isFirst: Bool = true
 
-    init() {
+    init(dateGenerator: @escaping () -> Date = Date.init) {
+        self.dateGenerator = dateGenerator
         shownWeeks = buildWeeks()
     }
 
@@ -23,7 +27,7 @@ class DatePickerManager: ObservableObject {
 
     func buildWeekDays(index: Int) -> [Date] {
         (0 ... 6).map {
-            day in Date.now.addingTimeInterval(index.weeks).addingTimeInterval(day.days)
+            day in dateGenerator().addingTimeInterval(index.weeks).addingTimeInterval(day.days)
         }
     }
 
@@ -36,12 +40,16 @@ class DatePickerManager: ObservableObject {
     }
 
     func loadNextWeek() {
+        currentIndex += isFirst ? 2 : 1
         shownWeeks.removeFirst()
-        shownWeeks.append(buildWeekDays(index: 2))
+        shownWeeks.append(buildWeekDays(index: currentIndex))
+        isFirst = false
     }
 
     func loadPreviousWeek() {
+        currentIndex -= isFirst ? 2 : 1
         shownWeeks.removeLast()
-        shownWeeks.insert(buildWeekDays(index: 0), at: 0)
+        shownWeeks.insert(buildWeekDays(index: currentIndex), at: 0)
+        isFirst = false
     }
 }

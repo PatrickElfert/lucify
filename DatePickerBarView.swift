@@ -23,6 +23,7 @@ struct DatePickerBarView: View {
                 }.frame(height: 70).onChange(of: currentPage) {
                     _ in
                     datePickerManager.onWeekChange(index: currentPage)
+                    currentPage = 1
                 }
             }
         }
