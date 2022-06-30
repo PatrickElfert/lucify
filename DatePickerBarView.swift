@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct DatePickerBarView: View {
+    @Binding var selectedDay: Date
     @ObservedObject var datePickerManager = DatePickerManager()
     @State private var scrollViewContentOffset = CGFloat(0)
     @State private var currentPage: Int = 1
+
     var body: some View {
         PagerView(pageCount: 3, currentIndex: $currentPage) {
             ForEach(datePickerManager.shownWeeks, id: \.self) {
@@ -18,41 +20,43 @@ struct DatePickerBarView: View {
                 HStack(spacing: 0) {
                     ForEach(week, id: \.self) {
                         day in
-                        DatePickerElement(date: day).padding(10)
+                        DatePickerElement(date: day, isSelected: Calendar.current.isDate(selectedDay, equalTo: day, toGranularity: .day)).padding(10).onTapGesture {
+                            selectedDay = day
+                        }
                     }
-                }.frame(height: 70).onChange(of: currentPage) {
+                }.onChange(of: currentPage) {
                     _ in
                     datePickerManager.onWeekChange(index: currentPage)
                     currentPage = 1
                 }
             }
-        }
+        }.frame(height: 70)
     }
 }
 
 struct DatePickerBarView_Previews: PreviewProvider {
     static var previews: some View {
-        DatePickerBarView()
+        DatePickerBarView(selectedDay: .constant(Date.now))
     }
 }
 
 struct DatePickerElement: View {
-    init(date: Date) {
+    init(date: Date, isSelected: Bool) {
         self.date = date
-        isToday = Calendar.current.isDateInToday(date)
+        self.isSelected = isSelected
     }
 
-    let isToday: Bool
+    let isSelected: Bool
     let date: Date
 
     var body: some View {
         VStack {
             Text("\(date.toString(.custom("dd"))!)").font(Font.body).fontWeight(.bold)
-            if isToday {
-                Text("Today").font(Font.caption).opacity(0.8)
+            if isSelected {
+                Text("\(date.toString(.custom("EEE"))!)").font(Font.caption).opacity(0.8)
             } else {
                 Text("\(date.toString(.custom("EEE"))!)").font(Font.caption).opacity(0.8)
             }
-        }.frame(width: 40, height: 40).background(isToday ? Color("Selection") : Color("Primary")).cornerRadius(10).foregroundColor(isToday ? .black : .white)
+        }.frame(width: 40, height: 40).background(isSelected ? Color("Selection") : Color("Primary")).cornerRadius(10).foregroundColor(isSelected ? .black : .white)
     }
 }

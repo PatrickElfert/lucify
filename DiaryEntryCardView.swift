@@ -16,13 +16,13 @@ struct DiaryEntryCardView: View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text(title).font(Font.title3.weight(.bold)).lineLimit(2).colorInvert()
+                    Text(title).font(Font.title3.weight(.bold)).lineLimit(2)
                     Spacer()
                     if isLucid {
                         Text("Lucid").font(Font.headline).padding(.horizontal, 10).background(Color("Selection")).cornerRadius(10)
                     }
                 }
-                Text(content).font(Font.body).opacity(0.8).padding(.leading, 3).lineLimit(5).colorInvert()
+                Text(content).font(Font.body).opacity(0.8).padding(.leading, 3).lineLimit(5)
             }.padding()
             Spacer()
         }.frame(maxWidth: 327).background(Color("Primary")).cornerRadius(17).padding(.leading, 2).onTapGesture {}

@@ -14,6 +14,12 @@ class DreamDiaryManager: ObservableObject {
         self.entries = entries
     }
 
+    func getFilteredEntries(date: Date) -> [DiaryEntryDTO] {
+        entries.filter {
+            Calendar.current.isDate($0.date, equalTo: date, toGranularity: .day)
+        }
+    }
+
     var entries: [DiaryEntryDTO] {
         set {
             if let encoded = try? JSONEncoder().encode(newValue) {
