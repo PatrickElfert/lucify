@@ -13,6 +13,7 @@ struct AlarmView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     @State var isDreamDiaryVisible = false
+    var dreamDiaryManager = DreamDiaryManager()
 
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct AlarmView: View {
                             }
                         }
                     }.sheet(isPresented: $isDreamDiaryVisible) {
-                        DreamDiarySheetView(forAlarmDate: Date.now).onDisappear {
+                        DreamDiarySheetView(forDate: Date.now, onSave: { entry in dreamDiaryManager.addEntries(date: Date.now, newEntries: [entry]) }).onDisappear {
                             if alarmManager.allAlarmsCompleted {
                                 dismiss()
                             }

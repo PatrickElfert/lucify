@@ -19,7 +19,7 @@ struct DiaryEntryCardView: View {
                     Text(title).font(Font.title3.weight(.bold)).lineLimit(2)
                     Spacer()
                     if isLucid {
-                        Text("Lucid").font(Font.headline).padding(.horizontal, 10).background(Color("Selection")).cornerRadius(10)
+                        Text("Lucid").font(Font.headline).padding(.horizontal, 10).background(Color("Selection")).cornerRadius(10).foregroundColor(.black)
                     }
                 }
                 Text(content).font(Font.body).opacity(0.8).padding(.leading, 3).lineLimit(5)

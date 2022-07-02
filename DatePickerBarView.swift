@@ -20,10 +20,12 @@ struct DatePickerBarView: View {
                 HStack(spacing: 0) {
                     ForEach(week, id: \.self) {
                         day in
-                        DatePickerElement(date: day, isSelected: Calendar.current.isDate(selectedDay, equalTo: day, toGranularity: .day)).padding(10).onTapGesture {
+                        Spacer()
+                        DatePickerElement(date: day, isSelected: Calendar.current.isDate(selectedDay, equalTo: day, toGranularity: .day)).onTapGesture {
                             selectedDay = day
                         }
                     }
+                    Spacer()
                 }.onChange(of: currentPage) {
                     _ in
                     datePickerManager.onWeekChange(index: currentPage)

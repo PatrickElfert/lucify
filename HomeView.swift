@@ -49,7 +49,7 @@ struct HomeView: View {
                     Spacer()
                 }
             }
-            .background(Color("Home Overlay")).cornerRadius(17)
+            .background(Color("Home Overlay")).cornerRadius(radius: 17, corners: [.topLeft, .topRight])
             .sheet(isPresented: $alarmsActive) {
                 AlarmView().environmentObject(alarmManager).onAppear {
                     isPresented = false

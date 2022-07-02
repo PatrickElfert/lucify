@@ -15,20 +15,21 @@ struct DreamDiaryView: View {
 
     @State var selectedDay = Date.now
     @State var isDreamDairySheetVisible = false
-    @State var entries: [DiaryEntryDTO] = []
-    var dreamDiaryManager: DreamDiaryManager
+    @ObservedObject var dreamDiaryManager: DreamDiaryManager
 
     var body: some View {
         VStack {
             VStack {
-                DatePickerBarView(selectedDay: $selectedDay).padding(.top)
-                if dreamDiaryManager.getFilteredEntries(date: selectedDay).count == 0 {
+                DatePickerBarView(selectedDay: $selectedDay).padding(.top).onChange(of: selectedDay) { day in dreamDiaryManager.loadEntries(date: day) }
+                if dreamDiaryManager.entries.count == 0 {
                     Text("You have not recorded any dreams for this day").font(.body).opacity(0.5).padding().frame(maxHeight: .infinity)
                 } else {
                     ScrollView {
-                        ForEach(dreamDiaryManager.getFilteredEntries(date: selectedDay)) {
+                        ForEach(dreamDiaryManager.entries) {
                             entry in
-                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).padding(20)
+                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).onTapGesture {
+                                isDreamDairySheetVisible = true
+                            }.padding(20)
                         }
                     }
                 }
@@ -37,17 +38,19 @@ struct DreamDiaryView: View {
             isDreamDairySheetVisible = true
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("Home Overlay"))
-            .cornerRadius(17)
-            .sheet(isPresented: $isDreamDairySheetVisible, onDismiss: { entries = dreamDiaryManager.entries }) {
-                DreamDiarySheetView(forAlarmDate: selectedDay)
+            .cornerRadius(radius: 17, corners: [.topLeft, .topRight])
+            .sheet(isPresented: $isDreamDairySheetVisible) {
+                DreamDiarySheetView(forDate: selectedDay) { entry in
+                    dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
+                }
             }.onAppear {
-                entries = dreamDiaryManager.entries
+                dreamDiaryManager.loadEntries(date: selectedDay)
             }
     }
 
     struct DreamDiaryView_Previews: PreviewProvider {
         static var previews: some View {
-            DreamDiaryView(dreamDiaryManager: DreamDiaryManager(entries: [DiaryEntryDTO(from: DiaryEntryModel(date: Date.now.addingTimeInterval(24.hours), title: "TestTitle2", description: "TestDescription2", isLucid: true)), DiaryEntryDTO(from: DiaryEntryModel(date: Date.now, title: "TestTitle", description: "TestDescription", isLucid: true))]))
+            DreamDiaryView(dreamDiaryManager: DreamDiaryManager())
         }
     }
 }
