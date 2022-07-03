@@ -9,10 +9,11 @@ import AVFoundation
 import Foundation
 
 public class LDAlarm: Identifiable, ObservableObject {
-    init(date: Date, audioPlayer: AVAudioPlayer? = nil, id: UUID = UUID()) {
+    init(date: Date, repeats: Int = 20, audioPlayer: AVAudioPlayer? = nil, id: UUID = UUID()) {
         self.audioPlayer = audioPlayer
         self.date = date
         self.id = id
+        self.repeats = repeats
         isCompleted = false
     }
 
@@ -26,4 +27,5 @@ public class LDAlarm: Identifiable, ObservableObject {
     public var id: UUID
     var date: Date
     var audioPlayer: AVAudioPlayer?
+    var repeats = 20
 }

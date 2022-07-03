@@ -24,17 +24,17 @@ struct HomeView: View {
         ZStack {
             VStack {
                 ScrollView(showsIndicators: false) {
-                    HStack {
-                        Text("Your Progress")
-                            .font(Font.largeTitle.weight(.bold))
-                            .padding(.top)
-                            .padding(.leading)
-                        Spacer()
-                    }
-                    HStack {
-                        StatisticCardView(title: "Lucid Dreams", count: 20)
-                        StatisticCardView(title: "Normal Dreams", count: 20)
-                    }
+                    /* HStack {
+                         Text("Your Progress")
+                             .font(Font.largeTitle.weight(.bold))
+                             .padding(.top)
+                             .padding(.leading)
+                         Spacer()
+                     }
+                     HStack {
+                         StatisticCardView(title: "Lucid Dreams", count: 20)
+                         StatisticCardView(title: "Normal Dreams", count: 20)
+                     } */
                     HStack {
                         Text("Start dreaming")
                             .font(Font.largeTitle.weight(.bold))

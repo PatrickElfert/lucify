@@ -52,8 +52,8 @@ class AlarmManagerTests: XCTestCase {
         rausisPreset.morningAlarms = [LDAlarm(date: morningDate)]
 
         let expectedDates = [wbtbDate.toString(.isoDateTime),
-                             wbtbDate.addingTimeInterval(2.minutes).toString(.isoDateTime),
-                             wbtbDate.addingTimeInterval(4.minutes).toString(.isoDateTime),
+                             wbtbDate.addingTimeInterval(3.minutes).toString(.isoDateTime),
+                             wbtbDate.addingTimeInterval(6.minutes).toString(.isoDateTime),
                              morningDate.toString(.isoDateTime)]
 
         let allAlarms = try awaitPublisher(alarmPublisher)
@@ -61,6 +61,8 @@ class AlarmManagerTests: XCTestCase {
 
         XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }
             .elementsEqual(expectedDates))
+        XCTAssert(alarmManager.runningAlarms.map { $0.repeats }
+            .elementsEqual([3, 3, 3, 20]))
     }
 
     func test_reset_alarms() throws {

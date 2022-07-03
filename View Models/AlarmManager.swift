@@ -26,9 +26,10 @@ class AlarmManager: ObservableObject {
             do {
                 let alarmDate = alarm.date.time(in: dateGenerator())
                 NotificationManager.shared.addNotification(id: alarm.id.uuidString, title: "Alarm", date: alarmDate)
-                let alarmToRun = LDAlarm(date: alarmDate, audioPlayer: try AVAudioPlayer(contentsOf: url), id: alarm.id)
+                let alarmToRun = LDAlarm(date: alarmDate, repeats: alarm.repeats, audioPlayer: try AVAudioPlayer(contentsOf: url), id: alarm.id)
                 guard let audioPlayer = alarmToRun.audioPlayer else { return }
-                audioPlayer.numberOfLoops = 20
+                audioPlayer.numberOfLoops = alarmToRun.repeats
+                print(audioPlayer.numberOfLoops)
                 audioPlayer.play(atTime: audioPlayer.deviceCurrentTime + alarmDate.timeIntervalSinceNow)
                 runningAlarms.append(alarmToRun)
             } catch {

@@ -24,27 +24,16 @@ struct RausisPresetView: View {
                         Text("WBTB")
                     }.datePickerStyle(.graphical)
                 }
-                Toggle(isOn: Binding(get: { rausisPreset.isChainingEnabled }, set: { rausisPreset.isChainingEnabled = $0; if $0 == true { isChainingClicked = false }})) {
-                    Image(systemName: "repeat.circle.fill").foregroundColor(Color("Primary"))
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text("Chaining")
-                            if rausisPreset.isChainingEnabled {
-                                Text("\(rausisPreset.numberOfChainedAlarms) times").font(.footnote).padding(.leading, 2).foregroundColor(Color("Primary"))
-                            }
-                        }
-                        Spacer()
-                    }.onTapGesture {
-                        withAnimation(.easeInOut) {
-                            isChainingClicked.toggle()
-                        }
-                    }
-                }.tint(Color("Primary"))
-                if rausisPreset.isChainingEnabled && isChainingClicked {
+                ExpandablePickerView(systemName: "repeat.circle.fill", title: "Chaining", footNote: " \(rausisPreset.numberOfChainedAlarms) times. Turn off after \(rausisPreset.turnOfAfterSeconds) sec", enabled: $rausisPreset.isChainingEnabled) {
                     Picker("Number of alarms", selection: $rausisPreset.numberOfChainedAlarms) {
-                        Text("2").tag(2)
-                        Text("4").tag(4)
-                        Text("6").tag(6)
+                        Text("2 times").tag(2)
+                        Text("4 times").tag(4)
+                        Text("6 times").tag(6)
+                    }.pickerStyle(.segmented)
+                    Picker("Time between alarms", selection: $rausisPreset.turnOfAfterSeconds) {
+                        Text("30 sec").tag(30)
+                        Text("60 sec").tag(60)
+                        Text("90 sec").tag(90)
                     }.pickerStyle(.segmented)
                 }
             }
