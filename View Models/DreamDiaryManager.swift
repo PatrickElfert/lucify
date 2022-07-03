@@ -67,7 +67,11 @@ struct DiaryEntryModel: Identifiable {
         self.isLucid = isLucid
     }
 
-    init(preview _: Bool = true) {
+    init() {
+        id = UUID()
+    }
+
+    init(preview _: Bool) {
         id = UUID()
         title = "Chocolate"
         description = "I was eating a lot of chocolate in my dream"

@@ -25,21 +25,42 @@ struct DreamDiarySheetView: View {
     }
 
     var body: some View {
-        Form {
-            TextField("Title", text: $newDiaryEntry.title)
-            TextEditorWithPlaceholder(text: $newDiaryEntry.description)
-            Toggle("Lucid", isOn: $newDiaryEntry.isLucid)
-            Button("Save") {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Record dream")
+                .font(Font.largeTitle.weight(.bold))
+                .padding(.top)
+                .padding(.leading)
+            Form {
+                Section {
+                    TextField("Title", text: $newDiaryEntry.title)
+                }
+                Section {
+                    TextEditorWithPlaceholder(text: $newDiaryEntry.description)
+                }
+
+                Section {
+                    Toggle("Lucid", isOn: $newDiaryEntry.isLucid).tint(Color("Primary"))
+                }
+            }
+            Button(action: {
                 newDiaryEntry.date = forDate
                 onSave(newDiaryEntry)
                 dismiss()
-            }.foregroundColor(Color("Primary"))
+            }) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("Save")
+                    Image(systemName: "cloud.moon.fill")
+                }.frame(maxWidth: .infinity, maxHeight: 50)
+            }
+            .background(Color("Primary"))
+            .cornerRadius(5)
+            .foregroundColor(.primary).padding()
         }
     }
 }
 
 struct DreamDiarySheetView_Previews: PreviewProvider {
     static var previews: some View {
-        DreamDiarySheetView(forDate: Date.now, onSave: { _ in }).environment(\.colorScheme, .dark)
+        DreamDiarySheetView(forDate: Date.now, onSave: { _ in })
     }
 }

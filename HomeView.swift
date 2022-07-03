@@ -25,15 +25,15 @@ struct HomeView: View {
             VStack {
                 ScrollView(showsIndicators: false) {
                     /* HStack {
-                         Text("Your Progress")
-                             .font(Font.largeTitle.weight(.bold))
-                             .padding(.top)
-                             .padding(.leading)
-                         Spacer()
+                     Text("Your Progress")
+                     .font(Font.largeTitle.weight(.bold))
+                     .padding(.top)
+                     .padding(.leading)
+                     Spacer()
                      }
                      HStack {
-                         StatisticCardView(title: "Lucid Dreams", count: 20)
-                         StatisticCardView(title: "Normal Dreams", count: 20)
+                     StatisticCardView(title: "Lucid Dreams", count: 20)
+                     StatisticCardView(title: "Normal Dreams", count: 20)
                      } */
                     HStack {
                         Text("Start dreaming")
@@ -54,11 +54,11 @@ struct HomeView: View {
                 AlarmView().environmentObject(alarmManager).onAppear {
                     isPresented = false
                 }.environment(\.scenePhase, scenePhase)
-            }
-
-            TechniqueSheetView(isPresented: $isPresented, selectedTechnique: $selectedTechnique) {
-                alarms in alarmManager.setAlarms(alarms: alarms)
-                alarmsActive = true
+            }.sheet(isPresented: $isPresented) {
+                TechniqueSheetView(selectedTechnique: $selectedTechnique) {
+                    alarms in alarmManager.setAlarms(alarms: alarms)
+                    alarmsActive = true
+                }
             }
         }
     }

@@ -14,7 +14,7 @@ struct DreamDiaryView: View {
     }
 
     @State var selectedDay = Date.now
-    @State var isDreamDairySheetVisible = false
+    @State var isDreamDiarySheetVisible = false
     @ObservedObject var dreamDiaryManager: DreamDiaryManager
 
     var body: some View {
@@ -28,18 +28,18 @@ struct DreamDiaryView: View {
                         ForEach(dreamDiaryManager.entries) {
                             entry in
                             DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).onTapGesture {
-                                isDreamDairySheetVisible = true
+                                isDreamDiarySheetVisible = true
                             }.padding(20)
                         }
                     }
                 }
             }.background(Color("Home Overlay"))
         }.floatingActionButton(color: Color("Primary"), image: Image(systemName: "plus").foregroundColor(.white)) {
-            isDreamDairySheetVisible = true
+            isDreamDiarySheetVisible = true
         }.frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color("Home Overlay"))
             .cornerRadius(radius: 17, corners: [.topLeft, .topRight])
-            .sheet(isPresented: $isDreamDairySheetVisible) {
+            .sheet(isPresented: $isDreamDiarySheetVisible) {
                 DreamDiarySheetView(forDate: selectedDay) { entry in
                     dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
                 }
