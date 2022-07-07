@@ -36,7 +36,7 @@ struct AlarmView: View {
                             }
                         }
                     }.sheet(isPresented: $isDreamDiaryVisible) {
-                        DreamDiarySheetView(forDate: Date.now, onSave: { entry in dreamDiaryManager.addEntries(date: Date.now, newEntries: [entry]) }).onDisappear {
+                        DreamDiarySheetView(diaryEntry: DiaryEntryModel(date: Date.now, title: "", description: "", isLucid: false), onSave: { entry in dreamDiaryManager.addEntries(date: Date.now, newEntries: [entry]) }).onDisappear {
                             if alarmManager.allAlarmsCompleted {
                                 dismiss()
                             }

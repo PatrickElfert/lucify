@@ -9,20 +9,8 @@ import SwiftUI
 
 struct DreamDiarySheetView: View {
     @Environment(\.dismiss) var dismiss
-    var forDate: Date
-    @State var newDiaryEntry = DiaryEntryModel()
+    @State var diaryEntry: DiaryEntryModel
     var onSave: (DiaryEntryModel) -> Void
-
-    init(diaryEntry: DiaryEntryModel, onSave: @escaping (DiaryEntryModel) -> Void) {
-        forDate = diaryEntry.date
-        self.onSave = onSave
-        newDiaryEntry = diaryEntry
-    }
-
-    init(forDate: Date, onSave: @escaping (DiaryEntryModel) -> Void) {
-        self.forDate = forDate
-        self.onSave = onSave
-    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -32,19 +20,18 @@ struct DreamDiarySheetView: View {
                 .padding(.leading)
             Form {
                 Section {
-                    TextField("Title", text: $newDiaryEntry.title)
+                    TextField("Title", text: $diaryEntry.title)
                 }
                 Section {
-                    TextEditorWithPlaceholder(text: $newDiaryEntry.description)
+                    TextEditorWithPlaceholder(text: $diaryEntry.description)
                 }
 
                 Section {
-                    Toggle("Lucid", isOn: $newDiaryEntry.isLucid).tint(Color("Primary"))
+                    Toggle("Lucid", isOn: $diaryEntry.isLucid).tint(Color("Primary"))
                 }
             }
             Button(action: {
-                newDiaryEntry.date = forDate
-                onSave(newDiaryEntry)
+                onSave(diaryEntry)
                 dismiss()
             }) {
                 HStack(alignment: .firstTextBaseline) {
@@ -61,6 +48,6 @@ struct DreamDiarySheetView: View {
 
 struct DreamDiarySheetView_Previews: PreviewProvider {
     static var previews: some View {
-        DreamDiarySheetView(forDate: Date.now, onSave: { _ in })
+        DreamDiarySheetView(diaryEntry: DiaryEntryModel(date: Date.now, title: "test", description: "testdc", isLucid: true), onSave: { _ in })
     }
 }

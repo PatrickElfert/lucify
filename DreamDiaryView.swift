@@ -15,6 +15,7 @@ struct DreamDiaryView: View {
 
     @State var selectedDay = Date.now
     @State var isDreamDiarySheetVisible = false
+    @State var selectedEntry: DiaryEntryModel?
     @ObservedObject var dreamDiaryManager: DreamDiaryManager
 
     var body: some View {
@@ -27,25 +28,37 @@ struct DreamDiaryView: View {
                     ScrollView {
                         ForEach(dreamDiaryManager.entries) {
                             entry in
-                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).onTapGesture {
+                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).padding(20).onTapGesture {
+                                selectedEntry = entry
+                                print(selectedEntry!)
                                 isDreamDiarySheetVisible = true
-                            }.padding(20)
+                            }
                         }
                     }
                 }
             }.background(Color("Home Overlay"))
-        }.floatingActionButton(color: Color("Primary"), image: Image(systemName: "plus").foregroundColor(.white)) {
-            isDreamDiarySheetVisible = true
-        }.frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color("Home Overlay"))
-            .cornerRadius(radius: 17, corners: [.topLeft, .topRight])
-            .sheet(isPresented: $isDreamDiarySheetVisible) {
-                DreamDiarySheetView(forDate: selectedDay) { entry in
+        }
+        .sheet(isPresented: $isDreamDiarySheetVisible) {
+            if selectedEntry != nil {
+                DreamDiarySheetView(diaryEntry: selectedEntry!) { entry in
                     dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
                 }
-            }.onAppear {
-                dreamDiaryManager.loadEntries(date: selectedDay)
+            } else {
+                DreamDiarySheetView(diaryEntry: DiaryEntryModel(date: selectedDay, title: "", description: "", isLucid: false)) { entry in
+                    dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
+                }
             }
+        }
+        .floatingActionButton(color: Color("Primary"), image: Image(systemName: "plus").foregroundColor(.white)) {
+            selectedEntry = nil
+            isDreamDiarySheetVisible = true
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color("Home Overlay"))
+        .cornerRadius(radius: 17, corners: [.topLeft, .topRight])
+        .onAppear {
+            dreamDiaryManager.loadEntries(date: selectedDay)
+        }
     }
 
     struct DreamDiaryView_Previews: PreviewProvider {

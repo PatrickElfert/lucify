@@ -25,7 +25,7 @@ struct DiaryEntryCardView: View {
                 Text(content).font(Font.body).opacity(0.8).padding(.leading, 3).lineLimit(5)
             }.padding()
             Spacer()
-        }.frame(maxWidth: 327).background(Color("Primary")).cornerRadius(17).padding(.leading, 2).onTapGesture {}
+        }.frame(maxWidth: 327).background(Color("Primary")).cornerRadius(17).padding(.leading, 2)
     }
 }
 
