@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-class NotificationManager: NSObject, UNUserNotificationCenterDelegate, ObservableObject {
+class NotificationManager: NSObject, UNUserNotificationCenterDelegate, ObservableObject, Notifiable {
     var currentNotificationIdentifier: String?
     @Published var isNotificationActive = false
 
@@ -25,9 +25,7 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate, Observabl
         currentNotificationIdentifier = notification.request.identifier
         isNotificationActive = true
     }
-}
 
-extension NotificationManager {
     func requestPermission(_ delegate: UNUserNotificationCenterDelegate? = nil,
                            onDeny handler: (() -> Void)? = nil)
     { // an optional onDeny handler is better here,
@@ -56,14 +54,11 @@ extension NotificationManager {
         })
         center.delegate = delegate ?? self
     }
-}
 
-extension NotificationManager {
     func addNotification(id: String, title: String, date: Date,
-                         sound: UNNotificationSound = UNNotificationSound.default)
+                         sound: UNNotificationSound)
     {
         let dateComponent = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: date)
-        print(dateComponent)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponent, repeats: false)
 
         let content = UNMutableNotificationContent()

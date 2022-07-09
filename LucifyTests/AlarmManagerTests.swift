@@ -5,107 +5,70 @@
 //  Created by Patrick Elfert on 21.05.22.
 //
 
-import Combine
 @testable import Lucify
 import XCTest
 
-class AlarmManagerTests: XCTestCase {
-    var alarmManager = AlarmManager {
-        "2022-09-03T16:10Z".toDate(.isoDateTime)!
+struct Notification {
+    var id: String
+    var title: String
+    var date: Date
+}
+
+class MockNotificationManager: Notifiable {
+    func removeNotifications(_ ids: [String]) {
+        notifications = notifications.filter { notification in !ids.contains(where: { id in id == notification.id }) }
     }
 
-    let dateFormatter = ISO8601DateFormatter()
-    var wbtbDate: Date!
-    var morningDate: Date!
-    private var cancelables: Set<AnyCancellable>!
+    var notifications: [Notification] = []
 
-    override func setUpWithError() throws {
-        cancelables = []
-        wbtbDate = "2022-09-04T04:10Z".toDate(.isoDateTime)
-        morningDate = "2022-09-04T06:10Z".toDate(.isoDateTime)
-        continueAfterFailure = false
-    }
-
-    override func tearDownWithError() throws {}
-
-    func test_creates_alarms_in_same_day() throws {
-        let mildPreset = MildViewModel()
-        let alarmPublisher = mildPreset.$allAlarms.dropFirst(2).first()
-        let tomorrow = "2022-09-04T17:11Z".toDate(.isoDateTime)!
-        let expectedDate = "2022-09-03T17:11Z".toDate(.isoDateTime)!
-
-        mildPreset.isWbtbEnabled = false
-        mildPreset.morningAlarms = [LDAlarm(date: tomorrow)]
-
-        let expectedDates = [expectedDate.toString(.isoDateTime)]
-        let allAlarms = try awaitPublisher(alarmPublisher)
-        alarmManager.setAlarms(alarms: allAlarms)
-        XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }.elementsEqual(expectedDates))
-    }
-
-    func test_creates_all_rausis_alarms() throws {
-        let rausisPreset = RausisViewModel()
-
-        let alarmPublisher = rausisPreset.$allAlarms.dropFirst(2).first()
-
-        rausisPreset.wbtbAlarms = [LDAlarm(date: wbtbDate)]
-        rausisPreset.morningAlarms = [LDAlarm(date: morningDate)]
-
-        let expectedDates = [wbtbDate.toString(.isoDateTime),
-                             wbtbDate.addingTimeInterval(3.minutes).toString(.isoDateTime),
-                             wbtbDate.addingTimeInterval(6.minutes).toString(.isoDateTime),
-                             morningDate.toString(.isoDateTime)]
-
-        let allAlarms = try awaitPublisher(alarmPublisher)
-
-        alarmManager.setAlarms(alarms: allAlarms)
-
-        XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }
-            .elementsEqual(expectedDates))
-        XCTAssert(alarmManager.runningAlarms.map { $0.repeats }
-            .elementsEqual([3, 3, 3, 20]))
-    }
-
-    func test_reset_alarms() throws {
-        alarmManager.runningAlarms = [LDAlarm(fromNow: 1.hours)]
-        alarmManager.cancelAlarms()
-        XCTAssert(alarmManager.runningAlarms.isEmpty)
+    func addNotification(id: String, title: String, date: Date, sound _: UNNotificationSound) {
+        notifications.append(Notification(id: id, title: title, date: date))
     }
 }
 
-extension XCTestCase {
-    func awaitPublisher<T: Publisher>(
-        _ publisher: T,
-        timeout: TimeInterval = 10,
-        file: StaticString = #file,
-        line: UInt = #line
-    ) throws -> T.Output {
-        var result: Result<T.Output, Error>?
-        let expectation = self.expectation(description: "Awaiting publisher")
+class AlarmManagerTests: XCTestCase {
+    var alarmManager: AlarmManager!
+    var currentDateTime: Date!
+    var dateFormatter = ISO8601DateFormatter()
+    var wbtbDateTime: Date!
+    var morningDateTime: Date!
+    var notificationManager: MockNotificationManager!
 
-        let cancellable = publisher.sink(
-            receiveCompletion: { completion in
-                switch completion {
-                case let .failure(error):
-                    result = .failure(error)
-                case .finished:
-                    break
-                }
+    override func setUpWithError() throws {
+        currentDateTime = "2022-09-03T16:10Z".toDate(.isoDateTime)!
+        wbtbDateTime = currentDateTime.addingTimeInterval(9.hours)
+        morningDateTime = currentDateTime.addingTimeInterval(6.hours)
+        notificationManager = MockNotificationManager()
+        alarmManager = AlarmManager(dateGenerator: {
+            self.currentDateTime
+        }, notificationManager: notificationManager)
+        continueAfterFailure = false
+    }
 
-                expectation.fulfill()
-            },
-            receiveValue: { value in
-                result = .success(value)
-            }
-        )
-        waitForExpectations(timeout: timeout)
-        cancellable.cancel()
-        let unwrappedResult = try XCTUnwrap(
-            result,
-            "Awaited publisher did not produce any output",
-            file: file,
-            line: line
-        )
-        return try unwrappedResult.get()
+    func test_adjust_alarms_if_possible_today() {
+        alarmManager.setAlarms(alarms: [LDAlarm(date: currentDateTime.addingTimeInterval(25.hours))])
+        XCTAssertEqual([currentDateTime.addingTimeInterval(1.hours)], alarmManager.runningAlarms.map { $0.date })
+    }
+
+    func test_sets_correct_alarm_dates() {
+        alarmManager.setAlarms(alarms: [LDAlarm(date: wbtbDateTime), LDAlarm(date: morningDateTime)])
+        XCTAssertEqual([wbtbDateTime, morningDateTime], alarmManager.runningAlarms.map { $0.date })
+    }
+
+    func test_sets_number_of_loops() {
+        alarmManager.setAlarms(alarms: [LDAlarm(date: wbtbDateTime, repeats: 3), LDAlarm(date: morningDateTime, repeats: 4)])
+        XCTAssertEqual([3, 4], alarmManager.runningAlarms.map { $0.audioPlayer?.numberOfLoops })
+    }
+
+    func test_creates_all_notifications() {
+        alarmManager.setAlarms(alarms: [LDAlarm(date: wbtbDateTime), LDAlarm(date: morningDateTime)])
+        XCTAssertEqual([wbtbDateTime, morningDateTime], notificationManager.notifications.map { $0.date })
+    }
+
+    func test_reset_alarms() throws {
+        alarmManager.setAlarms(alarms: [LDAlarm(date: wbtbDateTime), LDAlarm(date: morningDateTime)])
+        alarmManager.cancelAlarms()
+        XCTAssert(alarmManager.runningAlarms.isEmpty)
+        XCTAssert(notificationManager.notifications.isEmpty)
     }
 }
