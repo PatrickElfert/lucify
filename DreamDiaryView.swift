@@ -28,33 +28,35 @@ struct DreamDiaryView: View {
                     ScrollView {
                         ForEach(dreamDiaryManager.entries) {
                             entry in
-                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).padding(20).onTapGesture {
+                            DiaryEntryCardView(title: entry.title, content: entry.description, isLucid: entry.isLucid).onTapGesture {
                                 selectedEntry = entry
-                                print(selectedEntry!)
                                 isDreamDiarySheetVisible = true
                             }
                         }
                     }
                 }
-            }.background(Color("Home Overlay"))
+            }.background(PrimaryDark)
         }
         .sheet(isPresented: $isDreamDiarySheetVisible) {
             if selectedEntry != nil {
-                DreamDiarySheetView(diaryEntry: selectedEntry!) { entry in
+                DreamDiarySheetView(diaryEntry: selectedEntry!, onSave: { entry in
                     dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
-                }
+                }, onDelete: {
+                    entry in
+                    dreamDiaryManager.removeEntry(entry: entry)
+                })
             } else {
                 DreamDiarySheetView(diaryEntry: DiaryEntryModel(date: selectedDay, title: "", description: "", isLucid: false)) { entry in
                     dreamDiaryManager.addEntries(date: selectedDay, newEntries: [entry])
                 }
             }
         }
-        .floatingActionButton(color: Color("Primary"), image: Image(systemName: "plus").foregroundColor(.white)) {
+        .floatingActionButton(color: Primary, image: Image(systemName: "plus").foregroundColor(.white)) {
             selectedEntry = nil
             isDreamDiarySheetVisible = true
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color("Home Overlay"))
+        .background(PrimaryDark)
         .cornerRadius(radius: 17, corners: [.topLeft, .topRight])
         .onAppear {
             dreamDiaryManager.loadEntries(date: selectedDay)

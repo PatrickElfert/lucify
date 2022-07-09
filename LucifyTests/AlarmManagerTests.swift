@@ -57,6 +57,7 @@ class AlarmManagerTests: XCTestCase {
                              morningDate.toString(.isoDateTime)]
 
         let allAlarms = try awaitPublisher(alarmPublisher)
+
         alarmManager.setAlarms(alarms: allAlarms)
 
         XCTAssert(alarmManager.runningAlarms.map { $0.date.toString(.isoDateTime) }

@@ -11,7 +11,9 @@ import SwiftUI
 struct LucifyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().preferredColorScheme(.dark)
+            ContentView().preferredColorScheme(.dark).onAppear {
+                NotificationManager.shared.requestPermission()
+            }
         }
     }
 }

@@ -59,6 +59,6 @@ struct DatePickerElement: View {
             } else {
                 Text("\(date.toString(.custom("EEE"))!)").font(Font.caption).opacity(0.8)
             }
-        }.frame(width: 40, height: 40).background(isSelected ? Color("Selection") : Color("Primary")).cornerRadius(10).foregroundColor(isSelected ? .black : .white)
+        }.frame(width: 40, height: 40).background(isSelected ? PrimaryLight : Primary).cornerRadius(10).foregroundColor(isSelected ? .black : .white)
     }
 }

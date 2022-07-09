@@ -19,13 +19,13 @@ struct DiaryEntryCardView: View {
                     Text(title).font(Font.title3.weight(.bold)).lineLimit(2)
                     Spacer()
                     if isLucid {
-                        Text("Lucid").font(Font.headline).padding(.horizontal, 10).background(Color("Selection")).cornerRadius(10).foregroundColor(.black)
+                        Text("Lucid").font(Font.headline).padding(.horizontal, 10).background(PrimaryLight).cornerRadius(10).foregroundColor(.black)
                     }
                 }
                 Text(content).font(Font.body).opacity(0.8).padding(.leading, 3).lineLimit(5)
             }.padding()
             Spacer()
-        }.frame(maxWidth: 327).background(Color("Primary")).cornerRadius(17).padding(.leading, 2)
+        }.frame(maxWidth: 327).background(Primary).cornerRadius(17).padding(.leading, 2)
     }
 }
 

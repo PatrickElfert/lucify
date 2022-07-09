@@ -17,7 +17,7 @@ struct AlarmTimeLineView: View {
                     HStack {
                         VStack {
                             Image(systemName: runningAlarms.last?.id == alarm.id ? "sun.and.horizon.fill" : "moon.stars.fill")
-                        }.frame(width: 40, height: 40).background(Color("Primary")).cornerRadius(5)
+                        }.frame(width: 40, height: 40).background(Primary).cornerRadius(5)
                         Text(alarm.date.toString(.custom("hh:mm a"))!).fontWeight(.semibold)
                     }
                     if runningAlarms.last?.id != alarm.id {
@@ -25,7 +25,7 @@ struct AlarmTimeLineView: View {
                             Rectangle()
                                 .frame(width: 5, height: 70)
                                 .cornerRadius(5)
-                                .foregroundColor(Color("Primary")).opacity(0.5)
+                                .foregroundColor(Primary).opacity(0.5)
                         }.frame(width: 40)
                     }
                 }

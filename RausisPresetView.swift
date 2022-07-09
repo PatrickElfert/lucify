@@ -20,7 +20,7 @@ struct RausisPresetView: View {
                 ForEach($rausisPreset.wbtbAlarms) {
                     $alarm in
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
-                        Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
+                        Image(systemName: "moon.stars.fill").foregroundColor(Primary)
                         Text("WBTB")
                     }.datePickerStyle(.graphical)
                 }
@@ -40,7 +40,7 @@ struct RausisPresetView: View {
             ForEach($rausisPreset.morningAlarms) {
                 $alarm in
                 DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
-                    Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
+                    Image(systemName: "sun.and.horizon.fill").foregroundColor(Primary)
                     Text("Morning")
                 }.datePickerStyle(.graphical)
             }
@@ -55,6 +55,6 @@ struct RausisPresetView: View {
 
 struct RausisView_Previews: PreviewProvider {
     static var previews: some View {
-        RausisPresetView(allAlarms: .constant([]))
+        RausisPresetView(allAlarms: .constant([])).preferredColorScheme(.dark)
     }
 }

@@ -17,10 +17,13 @@ class AlarmManager: ObservableObject {
     init(runningAlarms: [LDAlarm] = [], dateGenerator: @escaping () -> Date = Date.init) {
         self.dateGenerator = dateGenerator
         self.runningAlarms = runningAlarms
+
+        NotificationCenter.default.addObserver(forName: UIApplication.willTerminateNotification, object: nil, queue: .main) { _ in
+            self.cancelAlarms()
+        }
     }
 
     public func setAlarms(alarms: [LDAlarm]) {
-        NotificationManager.shared.requestPermission()
         guard let url = Bundle.main.url(forResource: "scifi", withExtension: "mp3") else { return }
         for alarm in alarms {
             do {
@@ -40,6 +43,7 @@ class AlarmManager: ObservableObject {
 
     public func cancelAlarms() {
         runningAlarms = []
+        NotificationManager.shared.removeNotifications(runningAlarms.map { $0.id.uuidString })
     }
 
     public var allAlarmsCompleted: Bool {
@@ -47,7 +51,6 @@ class AlarmManager: ObservableObject {
     }
 
     public func completeAlarm(uuid: String) {
-        print(uuid)
         let alarm = runningAlarms.first {
             $0.id.uuidString == uuid
         }

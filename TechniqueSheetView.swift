@@ -23,7 +23,7 @@ struct TechniqueSheetView: View {
                     Image(systemName: "clock.badge.checkmark.fill")
                 }.frame(maxWidth: .infinity, maxHeight: 50)
             }
-            .background(Color("Primary"))
+            .background(Primary)
             .cornerRadius(5)
             .foregroundColor(.primary).padding()
         }

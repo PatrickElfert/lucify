@@ -19,7 +19,7 @@ struct TechniqueCardView: View {
                 Text(description).font(Font.body).opacity(0.8)
             }.padding(10)
             Spacer()
-        }.frame(width: 327, height: 90).background(Color("Primary")).cornerRadius(17).padding(.leading, 2).onTapGesture {
+        }.frame(width: 327, height: 90).background(Primary).cornerRadius(17).padding(.leading, 2).onTapGesture {
             onClick(type)
         }
     }

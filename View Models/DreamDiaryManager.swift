@@ -12,6 +12,14 @@ class DreamDiaryManager: ObservableObject {
 
     @Published var entries: [DiaryEntryModel] = []
 
+    func removeEntry(entry: DiaryEntryModel) {
+        let indexToRemove = entries.firstIndex { $0.id == entry.id }
+        if let index = indexToRemove {
+            entries.remove(at: index)
+            saveEntries(entries: entries, date: entry.date)
+        }
+    }
+
     func addEntries(date: Date, newEntries: [DiaryEntryModel]) {
         newEntries.forEach { newEntry in
             let entryIndex = entries.firstIndex { $0.id == newEntry.id }
@@ -21,6 +29,10 @@ class DreamDiaryManager: ObservableObject {
                 entries.append(newEntry)
             }
         }
+        saveEntries(entries: entries, date: date)
+    }
+
+    private func saveEntries(entries: [DiaryEntryModel], date: Date) {
         if let encoded = try? JSONEncoder().encode(entries.map { DiaryEntryDTO(from: $0) }) {
             let defaults = UserDefaults.standard
             defaults.set(encoded, forKey: getEntriesKey(date: date))

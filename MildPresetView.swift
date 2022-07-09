@@ -15,10 +15,10 @@ struct MildPresetView: View {
 
     var body: some View {
         List {
-            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled.animation()).tint(Color("Primary"))
+            Toggle("Combine MILD with WBTB", isOn: $mildPreset.isWbtbEnabled.animation()).tint(Primary)
             if mildPreset.isWbtbEnabled {
                 DatePicker(selection: $mildPreset.wbtbAlarms[0].date, displayedComponents: [.hourAndMinute]) {
-                    Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
+                    Image(systemName: "moon.stars.fill").foregroundColor(Primary)
                     Text("WBTB")
                 }.datePickerStyle(.graphical)
             }
@@ -26,7 +26,7 @@ struct MildPresetView: View {
                 ForEach($mildPreset.morningAlarms) {
                     $alarm in
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
-                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
+                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Primary)
                         Text("Morning")
                     }.datePickerStyle(.graphical)
                 }

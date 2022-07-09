@@ -17,7 +17,7 @@ struct ExpandablePickerView<Content: View>: View {
 
     var body: some View {
         Toggle(isOn: Binding(get: { enabled }, set: { enabled = $0; if $0 == true { isClicked = false }})) {
-            Image(systemName: systemName).foregroundColor(Color("Primary"))
+            Image(systemName: systemName).foregroundColor(Primary)
             HStack {
                 VStack(alignment: .leading) {
                     Text("Chaining")
@@ -25,7 +25,7 @@ struct ExpandablePickerView<Content: View>: View {
                         Text(footNote)
                             .font(.footnote)
                             .padding(.leading, 2)
-                            .foregroundColor(Color("Primary"))
+                            .foregroundColor(Primary)
                     }
                 }
                 Spacer()
@@ -34,7 +34,7 @@ struct ExpandablePickerView<Content: View>: View {
                     isClicked.toggle()
                 }
             }
-        }.tint(Color("Primary"))
+        }.tint(Primary)
         if enabled && isClicked {
             content
         }

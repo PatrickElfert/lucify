@@ -19,7 +19,7 @@ struct GenericPresetView: View {
                 ForEach($genericPreset.wbtbAlarms) {
                     $alarm in
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
-                        Image(systemName: "moon.stars.fill").foregroundColor(Color("Primary"))
+                        Image(systemName: "moon.stars.fill").foregroundColor(Primary)
                         Text("WBTB")
                     }.datePickerStyle(.graphical)
                 }
@@ -28,7 +28,7 @@ struct GenericPresetView: View {
                 ForEach($genericPreset.morningAlarms) {
                     $alarm in
                     DatePicker(selection: $alarm.date, displayedComponents: [.hourAndMinute]) {
-                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Color("Primary"))
+                        Image(systemName: "sun.and.horizon.fill").foregroundColor(Primary)
                         Text("Morning")
                     }.datePickerStyle(.graphical)
                 }

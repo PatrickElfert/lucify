@@ -52,13 +52,11 @@ struct AlarmView: View {
                     Text("Stop")
                 }.frame(maxWidth: .infinity, maxHeight: 50)
             }.frame(maxWidth: .infinity, maxHeight: 50)
-                .background(Color("Primary"))
+                .background(Primary)
                 .cornerRadius(5)
                 .foregroundColor(.primary).padding()
         }
         .onChange(of: scenePhase) { newPhase in
-            print("scene phase")
-            print(newPhase)
             if newPhase == .active {
                 let runningAlarm = alarmManager.runningAlarms.first {
                     $0.audioPlayer!.isPlaying

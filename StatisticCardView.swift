@@ -15,7 +15,7 @@ struct StatisticCardView: View {
         VStack {
             Text("\(count)").font(.largeTitle).fontWeight(.heavy)
             Text(title).font(.caption)
-        }.frame(width: 120, height: 90).background(Color("Primary")).cornerRadius(17).padding(5)
+        }.frame(width: 120, height: 90).background(Primary).cornerRadius(17).padding(5)
     }
 }
 
